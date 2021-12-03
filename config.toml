@@ -39,15 +39,15 @@ hrefTargetBlank = true
 author = "Veertu, Inc."
 description = "Documentation for Veertu's Image Scanner Software"
 copyright = "Copyright Veertu, Inc."
-downloads_link = "https://veertu.com/download-image-scanner/"
-github_repo = "https://github.com/veertuinc/image-scanner-docs"
+downloads_link = "https://veertu.com/download-scanner/"
+github_repo = "https://github.com/veertuinc/scanner-docs"
 github_branch = "main"
 suggest_edit = true
 
 version_menu = "Version Snapshots"
 archived_version = false
 version = "0.0.1"
-url_latest_version = "https://docs.veertu.com/image-scanner"
+url_latest_version = "https://docs.veertu.com/scanner"
 
 # permalink = "#"
 # Enable Lunr.js offline search
@@ -72,11 +72,11 @@ sidebar_menu_foldable = true
 [deployment]
   [[deployment.targets]]
   name = "latest"
-  url = "s3://veertu-docs?region=us-west-2&prefix=image-scanner/"
+  url = "s3://veertu-docs?region=us-west-2&prefix=scanner/"
   cloudFrontDistributionID = "E1HL1WPGFI84XU"
   [[deployment.targets]]
   name = "staging"
-  url = "s3://veertu-docs-staging?region=us-west-2&prefix=image-scanner/"
+  url = "s3://veertu-docs-staging?region=us-west-2&prefix=scanner/"
 
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
@@ -97,7 +97,7 @@ icon = "fab fa-slack"
 desc = "Chat with us on slack"
 [[params.links.developer]]
 name = "GitHub"
-url = "https://github.com/veertuinc/image-scanner-docs"
+url = "https://github.com/veertuinc/scanner-docs"
 icon = "fab fa-github"
 desc = "Image Scanner Documentation Github"
 
