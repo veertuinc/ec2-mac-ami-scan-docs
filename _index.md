@@ -43,7 +43,8 @@ Use "scanner [command] --help" for more information about a command.
 
 - Access to the Anka Registry storage directory
 - Docker
-- ~600MBs of space
+- ~200MBs of space
+- 16GB of RAM or more
 
 ## Usage
 
