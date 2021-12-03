@@ -61,8 +61,6 @@ There are three different commands/types available in the scanner:
 
 This type will automatically scan the registry storage directory you've mounted and find the proper .ank file to scan. It's essentially `anka_image` under the hood.
 
-#### Example
-
 Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-forward-22`, and `vanilla+port-forward-22+brew-git`. If I wanted to scan `vanilla`, I would run:
 
 ```bash
