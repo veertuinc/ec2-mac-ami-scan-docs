@@ -7,3 +7,4 @@ node_modules
 resources/_gen/
 .dccache
 tmp
+.hugo_build.lock
