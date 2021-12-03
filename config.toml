@@ -1,6 +1,6 @@
 
 baseurl = "/"
-title = "Veertu's Image Scanner Documentation"
+title = "Veertu's Scanner Documentation"
 
 buildExpired = true
 buildFuture = true
