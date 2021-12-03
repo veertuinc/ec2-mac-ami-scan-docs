@@ -1,0 +1,103 @@
+
+baseurl = "/"
+title = "Veertu's Image Scanner Documentation"
+
+buildExpired = true
+buildFuture = true
+enableGitInfo = true
+enableRobotsTXT = true
+googleAnalytics = "UA-155043723-1"
+summaryLength = 120
+theme = ["docsy"]
+staticDir = ["content/static", "static"]
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+      # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+      style = "monokai"
+
+[sitemap]
+changefreq = "weekly"
+filename = "sitemap.xml"
+priority = 0.5
+
+[outputs]
+section = ["HTML", "RSS"]
+
+[blackfriday]
+smartypants	= true
+fractions = true
+smartDashes = false
+plainIDAnchors = true
+hrefTargetBlank = true
+
+[params]
+# General information
+author = "Veertu, Inc."
+description = "Documentation for Veertu's Image Scanner Software"
+copyright = "Copyright Veertu, Inc."
+downloads_link = "https://veertu.com/download-image-scanner/"
+github_repo = "https://github.com/veertuinc/image-scanner-docs"
+github_branch = "main"
+suggest_edit = true
+
+version_menu = "Version Snapshots"
+archived_version = false
+version = "0.0.1"
+url_latest_version = "https://docs.veertu.com/image-scanner"
+
+# permalink = "#"
+# Enable Lunr.js offline search
+offlineSearch = true
+
+[params.palette]
+primary = "deep-purple"
+accent  = "pink"
+[params.font]
+text = "Ubuntu"
+code = "Ubuntu Mono"
+[params.ui]
+navbar_logo = true
+sidebar_menu_foldable = true
+
+# [params.versions]
+#   [params.versions."1.17.1/2.4.1"]
+#   version = "1.17.1/2.4.1"
+#   url = "http://docs-1.17.1-and-2.4.1.s3-website.us-west-1.amazonaws.com"
+
+
+[deployment]
+  [[deployment.targets]]
+  name = "latest"
+  url = "s3://veertu-docs?region=us-west-2&prefix=image-scanner/"
+  cloudFrontDistributionID = "E1HL1WPGFI84XU"
+  [[deployment.targets]]
+  name = "staging"
+  url = "s3://veertu-docs-staging?region=us-west-2&prefix=image-scanner/"
+
+[params.links]
+# End user relevant links. These will show up on left side of footer and in the community page if you have one.
+[[params.links.user]]
+name = "Email"
+url = "mailto:support@veertu.com"
+icon = "fa fa-envelope"
+desc = "Email us for any questions"
+[[params.links.user]]
+name ="Twitter"
+url = "https://twitter.com/veertu_labs"
+icon = "fab fa-twitter"
+desc = "Follow us on Twitter to get the latest news!"
+[[params.links.user]]
+name = "Slack"
+url = "https://slack.veertu.com/"
+icon = "fab fa-slack"
+desc = "Chat with us on slack"
+[[params.links.developer]]
+name = "GitHub"
+url = "https://github.com/veertuinc/image-scanner-docs"
+icon = "fab fa-github"
+desc = "Image Scanner Documentation Github"
+
