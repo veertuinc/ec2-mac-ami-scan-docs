@@ -6,10 +6,8 @@ type: "docs"
 
 {{< include file="_partials/what-is/_short.md" >}}
 
-# Getting Started
-
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt scanner:0.0.1 --help
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/k5c2b8e5/scanner:0.0.1 --help
 
 A vulnerability scanner for Anka VM images and macOS filesystems.
 
@@ -68,7 +66,7 @@ This type will automatically scan the registry storage directory you've mounted 
 Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-forward-22`, and `vanilla+port-forward-22+brew-git`. If I wanted to scan `vanilla`, I would run:
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt scanner:0.0.1 anka_registry_vm:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/k5c2b8e5/scanner:0.0.1 anka_registry_vm:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
 ] You are using a beta/trial version which expires on 2022-01-31
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
@@ -89,7 +87,7 @@ python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical
 Or, write the report to a file:
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt scanner:0.0.1 anka_registry_vm:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/k5c2b8e5/scanner:0.0.1 anka_registry_vm:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 Report written to "/mnt/logfile"
@@ -129,7 +127,7 @@ hard_drives:
 network_cards:
 - mode: shared
 
-❯ docker run -it --rm -v /Users/nathanpierce/Library/Application\ Support/Veertu/Anka:/mnt scanner:0.0.1 anka_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
+❯ docker run -it --rm -v /Users/nathanpierce/Library/Application\ Support/Veertu/Anka:/mnt public.ecr.aws/k5c2b8e5/scanner:0.0.1 anka_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
  ✔ Indexed Data Volume      ✔ Cataloged packages      [214 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 TYPE       NAME          VERSION   VULNERABILITY   SCORE  SEVERITY 
@@ -157,7 +155,7 @@ python     numpy         1.8.0rc1  CVE-2014-1858   5.5    medium
 Lastly, you can scan a folder on your local machine:
 
 ```bash
-❯ docker run -it --rm -v /Users/user1/:/mnt scanner:0.0.1 dir:/mnt/myProject
+❯ docker run -it --rm -v /Users/user1/:/mnt public.ecr.aws/k5c2b8e5/scanner:0.0.1 dir:/mnt/myProject
  ✔ Indexed /mnt/myProject     ✔ Cataloged packages      [660 packages]
 TYPE       NAME                        VERSION                                                     VULNERABILITY   SCORE  SEVERITY 
 gem        actionview                  4.1.1                                                       CVE-2020-5267   4.8    medium    
