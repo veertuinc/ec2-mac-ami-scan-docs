@@ -1,3 +1,10 @@
 ---
 ---
-Veertu Image scanner software solution(currently beta) scans for vulnerabilities in Anka images used for CI build and test of iOS and macOS applications. The image scanner runs against all or specific VM images in the Anka registry, identifies libraries, tools, agents and reports vulnerabilities against the NVD database. Veertu image scanner scans the images without the need to run and install anything inside the image. We are also working to increase the scope of the Veertu image scanner to also scan and report vulnerabilities in AWS EC2 macOS AMIs and not just Anka images.
+
+# About
+
+The Veertu Scanner software solution scans for vulnerabilities in Anka images and macOS filesystems used for CI building and testing of iOS or macOS applications. The scanner identifies vulnerabilities in libraries and tools utilizing an NVD database and provides a report. It does require installation inside of the Anka VM/image or host.
+
+{{< hint info >}}
+We are also working to increase the scope of the Veertu image scanner to also scan and report vulnerabilities in AWS EC2 macOS AMIs and not just Anka images.
+{{< /hint >}}
