@@ -106,7 +106,7 @@ python     numpy         1.8.0rc1  CVE-2017-12852  7.5    high
 python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical  
 ```
 
-### Anka Image
+### Ank Image
 
 If you're a more advanced user, you can determine the root .ank file inside of the metadata yaml for your VM/Template. This allows you to scan on your registry but also on an Anka host machine as well.
 
