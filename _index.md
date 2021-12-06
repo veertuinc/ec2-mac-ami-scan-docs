@@ -149,7 +149,7 @@ python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical
 python     numpy         1.8.0rc1  CVE-2014-1858   5.5    medium
 ```
 
-### Directory
+<!-- ### Directory
 
 Lastly, you can scan a folder on your local machine:
 
@@ -212,4 +212,4 @@ go-module  github.com/golang/protobuf  v1.5.2                                   
 go-module  google.golang.org/protobuf  v1.27.1                                                     CVE-2015-5237   8.8    high      
 npm        ansi-regex                  3.0.0                                                       CVE-2021-3807   7.8    high      
 npm        minimist                    0.0.10                                                      CVE-2020-7598   6.8    medium 
-```
+``` -->
