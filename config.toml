@@ -1,6 +1,6 @@
 
 baseurl = "/"
-title = "Veertu's Scanner Documentation"
+title = "Veertu's Anka Scanner Documentation"
 
 buildExpired = true
 buildFuture = true
@@ -37,17 +37,17 @@ hrefTargetBlank = true
 [params]
 # General information
 author = "Veertu, Inc."
-description = "Documentation for Veertu's Image Scanner Software"
+description = "Documentation for Veertu's Anka Scanner Software"
 copyright = "Copyright Veertu, Inc."
-downloads_link = "https://veertu.com/download-scanner/"
-github_repo = "https://github.com/veertuinc/scanner-docs"
+downloads_link = "https://veertu.com/download-anka-scanner/"
+github_repo = "https://github.com/veertuinc/anka-scanner-docs"
 github_branch = "main"
 suggest_edit = true
 
 version_menu = "Version Snapshots"
 archived_version = false
 version = "0.0.1"
-url_latest_version = "https://docs.veertu.com/scanner"
+url_latest_version = "https://docs.veertu.com/anka-scanner"
 
 # permalink = "#"
 # Enable Lunr.js offline search
@@ -72,11 +72,11 @@ sidebar_menu_foldable = true
 [deployment]
   [[deployment.targets]]
   name = "latest"
-  url = "s3://veertu-docs?region=us-west-2&prefix=scanner/"
+  url = "s3://veertu-docs?region=us-west-2&prefix=anka-scanner/"
   cloudFrontDistributionID = "E1HL1WPGFI84XU"
   [[deployment.targets]]
   name = "staging"
-  url = "s3://veertu-docs-staging?region=us-west-2&prefix=scanner/"
+  url = "s3://veertu-docs-staging?region=us-west-2&prefix=anka-scanner/"
 
 [params.links]
 # End user relevant links. These will show up on left side of footer and in the community page if you have one.
@@ -99,5 +99,5 @@ desc = "Chat with us on slack"
 name = "GitHub"
 url = "https://github.com/veertuinc/scanner-docs"
 icon = "fab fa-github"
-desc = "Image Scanner Documentation Github"
+desc = "Anka Anka Scanner Documentation Github"
 
