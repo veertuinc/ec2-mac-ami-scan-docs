@@ -97,7 +97,7 @@ icon = "fab fa-slack"
 desc = "Chat with us on slack"
 [[params.links.developer]]
 name = "GitHub"
-url = "https://github.com/veertuinc/scanner-docs"
+url = "https://github.com/veertuinc/anka-scanner-docs"
 icon = "fab fa-github"
 desc = "Anka Anka Scanner Documentation Github"
 
