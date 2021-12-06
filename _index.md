@@ -54,9 +54,8 @@ While in beta, we are providing only a docker image/tag for running the scanner.
 
 There are three different commands/types available in the scanner:
 
-1. [`anka_registry_vm`](#anka-registry-vm)
-2. [`anka_image`](#anka-image)
-3. [`dir`](#directory)
+1. [`registry_template`](#anka-registry-vm)
+2. [`ank_image`](#anka-image)
 
 ### Anka Registry VM
 
