@@ -8,3 +8,4 @@ resources/_gen/
 .dccache
 tmp
 .hugo_build.lock
+report-*
