@@ -23,6 +23,7 @@ pipeline {
               source ~/.bashrc &>/dev/null
               nvm use 12.21.0
               curl https://htmltest.wjdp.uk | bash
+              npx hugo server &
               npm run html-test-build
               ./bin/htmltest -c .htmltest.yml public/
             """
