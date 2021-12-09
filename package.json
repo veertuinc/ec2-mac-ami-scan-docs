@@ -6,7 +6,7 @@
   "scripts": {
     "staging-build": "npx hugo --minify --baseURL http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com/anka-scanner/",
     "staging-deploy": "npx hugo deploy -v --target=staging --maxDeletes -1",
-    "html-test-build": "npx hugo -e production --minify",
+    "html-test-build": "npx hugo -e production --minify --baseURL http://localhost:1313/",
     "public-build": "npx hugo -e production --minify --baseURL https://docs.veertu.com/anka-scanner/",
     "public-deploy": "npx hugo deploy --target=latest --invalidateCDN --force --maxDeletes -1"
   },
