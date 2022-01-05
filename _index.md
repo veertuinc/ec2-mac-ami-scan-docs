@@ -113,7 +113,7 @@ If you're a more advanced user, you can determine the root .ank file inside of t
 I'm going to track down the `hard_drives > controller > file` value first:
 
 ```bash
-❯ cat $(anka config vm_lib_dir)/ea663a61-0e5c-4419-8194-697104fb693a/ea663a61-0e5c-4419-8194-697104fb693a.yaml | grep -5 hard_drives
+❯ cat "$(anka config vm_lib_dir)/ea663a61-0e5c-4419-8194-697104fb693a/ea663a61-0e5c-4419-8194-697104fb693a.yaml" | grep -5 hard_drives
     width: 1024
 ram: 8G
 uuid: ea663a61-0e5c-4419-8194-697104fb693a
