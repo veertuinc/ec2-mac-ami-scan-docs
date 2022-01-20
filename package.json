@@ -4,19 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "staging-build": "npx hugo --minify --baseURL http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com/anka-scanner/",
+    "staging-build": "npx hugo --minify --baseURL http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com/anka-scan/",
     "staging-deploy": "npx hugo deploy -v --target=staging --maxDeletes -1",
     "html-test-build": "npx hugo -e production --minify --baseURL http://localhost:1313/",
-    "public-build": "npx hugo -e production --minify --baseURL https://docs.veertu.com/anka-scanner/",
+    "public-build": "npx hugo -e production --minify --baseURL https://docs.veertu.com/anka-scan/",
     "public-deploy": "npx hugo deploy --target=latest --invalidateCDN --force --maxDeletes -1"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/veertunew/anka-scanner-docs.git"
+    "url": "git+ssh://git@bitbucket.org/veertunew/anka-scan-docs.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://github.com/veertuinc/anka-scanner-docs",
+  "homepage": "https://github.com/veertuinc/anka-scan-docs",
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^9.7.3",

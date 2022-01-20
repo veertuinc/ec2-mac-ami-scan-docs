@@ -1,5 +1,5 @@
-# Anka Scanner Documentation (HUGO)
+# Anka scanDocumentation (HUGO)
 
-http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com/anka-scanner/
+http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com/anka-scan/
 
-https://docs.veertu.com/anka-scanner
+https://docs.veertu.com/anka-scan
