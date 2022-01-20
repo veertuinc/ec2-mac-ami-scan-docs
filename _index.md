@@ -7,19 +7,21 @@ type: "docs"
 {{< include file="_partials/what-is/_short.md" >}}
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/k5c2b8e5/anka-scanner:0.0.1 --help                
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/veertu/anka-scan:0.2.0 --help                
+
+] You are using a beta/trial version which expires on 2022-02-28
 
 A vulnerability scanner for Anka VMs and images.
 
 Supported commands/types:
-  scanner registry_template:uuid[:tag]    | Read and scan from registry Anka VM using the UUID and optional tag
+  anka-scan registry_template:uuid[:tag]    | Read and scan from registry Anka VM using the UUID and optional tag
                                             - [:tag] defaults to latest tag
-  scanner ank_image:/path/to/image.ank    | Read and scan using an Anka image at the specified path
-  scanner dir:/path/to/folder             | Scan from the specified path
+  anka-scan ank_image:/path/to/image.ank    | Read and scan using an Anka image at the specified path
+  anka-scan dir:/path/to/folder             | Scan from the specified path
 
 Usage:
-  scanner type:source [flags]
-  scanner [command]
+  anka-scan type:source [flags]
+  anka-scan [command]
 
 Available Commands:
   completion  generate the autocompletion script for the specified shell
@@ -28,15 +30,15 @@ Available Commands:
 
 Flags:
   -c, --config string          application config file
-  -h, --help                   help for scanner
+  -h, --help                   help for anka-scan
   -i, --ignore-system-volume   do not scan the system volume (for anka VM)
   -q, --quiet                  suppress all console output
   -o, --report-file string     write report to file
   -f, --report-format string   report output format, formats=[json table] (default "table")
   -p, --show-packages          do not scan and only show packages
-  -s, --storage-dir string     the location in the container where you have mounted the registry storage or other host directory (default "/mnt")
+  -s, --storage-dir string     the location of the registry storage containing *_lib directories (default "/mnt")
 
-Use "scanner [command] --help" for more information about a command.
+Use "anka-scan [command] --help" for more information about a command.
 ```
 
 ## Prerequisites
@@ -52,7 +54,7 @@ Use "scanner [command] --help" for more information about a command.
 While in beta, we are providing only a docker image/tag for running the scanner. The database is inside of the container for now.
 {{< /hint >}}
 
-There are three different commands/types available in the scanner:
+There are two different commands/types available in the scanner:
 
 1. [`registry_template`](#anka-registry-vm)
 2. [`ank_image`](#anka-image)
@@ -65,7 +67,7 @@ Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-fo
 
 ```bash
 export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry"
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" public.ecr.aws/k5c2b8e5/anka-scanner:0.0.1 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -86,7 +88,7 @@ python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical
 Or, write the report to a file:
 
 ```bash
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" public.ecr.aws/k5c2b8e5/anka-scanner:0.0.1 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" public.ecr.aws/veertu/anka-scan:0.2.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 Report written to "/reports/report-12_06_2021_16:44"
@@ -126,7 +128,7 @@ hard_drives:
 network_cards:
 - mode: shared
 
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/k5c2b8e5/anka-scanner:0.0.1 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
  ✔ Indexed Data Volume      ✔ Cataloged packages      [214 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
