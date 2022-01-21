@@ -57,7 +57,7 @@ While in beta, we are providing only a docker image/tag for running the scanner.
 There are two different commands/types available in the scanner:
 
 1. [`registry_template`](#anka-registry-vm)
-2. [`ank_image`](#anka-image)
+2. [`ank_image`](#ank-image)
 
 ### Anka Registry VM
 
@@ -150,4 +150,137 @@ python     numpy         1.8.0rc1  CVE-2014-1858   5.5    medium
 python     numpy         1.8.0rc1  CVE-2017-12852  7.5    high      
 python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical  
 python     numpy         1.8.0rc1  CVE-2014-1859   5.5    medium  
+```
+
+
+### Report Formats
+
+By default the human readable table output does not include paths or other information about how the vulnerability was found. Fortunately, we allow you to produce verbose JSON output with that information.
+
+```bash
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json
+ ✔ Indexed Data Volume
+ ✔ Cataloged packages      [222 packages]
+ ✔ Indexed System Volume
+ ✔ Cataloged packages      [345 packages]
+
+{
+ "matches": [
+  {
+   "vulnerability": {
+    "id": "CVE-2020-7791",
+    "base-score": 7.5,
+    "severity": "high"
+   },
+   "matchDetails": [
+    {
+     "matched-cpe": "cpe:/a:i18n_project:i18n:::~~~asp.net~~",
+     "matched-version": "0.9.5",
+     "matched-constraint": "< 2.1.15",
+     "match-type": "Semantic"
+    }
+   ],
+   "artifact": {
+    "name": "i18n",
+    "version": "0.9.5",
+    "type": "gem",
+    "locations": [
+     {
+      "path": "/usr/local/Homebrew/docs/Gemfile.lock"
+     }
+    ],
+    "language": "ruby",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:ruby-lang:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:ruby_lang:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:i18n:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:ruby:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:*:i18n:0.9.5:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:gem/i18n@0.9.5",
+    "metadata": null
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2020-7791",
+    "base-score": 7.5,
+    "severity": "high"
+   },
+   "matchDetails": [
+    {
+     "matched-cpe": "cpe:/a:i18n_project:i18n:::~~~asp.net~~",
+     "matched-version": "0.9.5",
+     "matched-constraint": "< 2.1.15",
+     "match-type": "Semantic"
+    }
+   ],
+   "artifact": {
+    "name": "i18n",
+    "version": "0.9.5",
+    "type": "gem",
+    "locations": [
+     {
+      "path": "/usr/local/Homebrew/docs/Gemfile.lock"
+     }
+    ],
+    "language": "ruby",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:ruby-lang:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:ruby_lang:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:i18n:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:ruby:i18n:0.9.5:*:*:*:*:*:*:*",
+     "cpe:2.3:a:*:i18n:0.9.5:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:gem/i18n@0.9.5",
+    "metadata": null
+   }
+  },
+  {
+   "vulnerability": {
+    "id": "CVE-2020-7791",
+    "base-score": 7.5,
+    "severity": "high"
+   },
+   "matchDetails": [
+    {
+     "matched-cpe": "cpe:/a:i18n_project:i18n:::~~~asp.net~~",
+     "matched-version": "1.8.11",
+     "matched-constraint": "< 2.1.15",
+     "match-type": "Semantic"
+    }
+   ],
+   "artifact": {
+    "name": "i18n",
+    "version": "1.8.11",
+    "type": "gem",
+    "locations": [
+     {
+      "path": "/usr/local/Homebrew/Library/Homebrew/Gemfile.lock"
+     }
+    ],
+    "language": "ruby",
+    "licenses": [],
+    "cpes": [
+     "cpe:2.3:a:ruby-lang:i18n:1.8.11:*:*:*:*:*:*:*",
+     "cpe:2.3:a:ruby_lang:i18n:1.8.11:*:*:*:*:*:*:*",
+     "cpe:2.3:a:i18n:i18n:1.8.11:*:*:*:*:*:*:*",
+     "cpe:2.3:a:ruby:i18n:1.8.11:*:*:*:*:*:*:*",
+     "cpe:2.3:a:*:i18n:1.8.11:*:*:*:*:*:*:*"
+    ],
+    "purl": "pkg:gem/i18n@1.8.11",
+    "metadata": null
+   }
+  },
+
+ . . .
+
+ ],
+ "source": {
+  "type": "anka image",
+  "target": "/Users/nathanpierce/Library/Application Support/Veertu/Anka/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank"
+ }
+}
 ```
