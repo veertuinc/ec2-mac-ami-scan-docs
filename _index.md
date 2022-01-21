@@ -163,11 +163,6 @@ The use of `--quite` here is important to avoid any output which is not json par
 
 ```bash
 ❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
- ✔ Indexed Data Volume
- ✔ Cataloged packages      [222 packages]
- ✔ Indexed System Volume
- ✔ Cataloged packages      [345 packages]
-
 {
  "matches": [
   {
