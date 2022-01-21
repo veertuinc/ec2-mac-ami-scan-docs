@@ -157,8 +157,12 @@ python     numpy         1.8.0rc1  CVE-2014-1859   5.5    medium
 
 By default the human readable table output does not include paths or other information about how the vulnerability was found. Fortunately, we allow you to produce verbose JSON output with that information.
 
+{{< hint info >}}
+The use of `--quite` here is important to avoid any output which is not json parsable.
+{{< /hint >}}
+
 ```bash
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
  ✔ Indexed Data Volume
  ✔ Cataloged packages      [222 packages]
  ✔ Indexed System Volume
