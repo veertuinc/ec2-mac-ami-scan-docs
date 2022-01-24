@@ -283,3 +283,34 @@ The use of `--quite` here is important to avoid any output which is not json par
  }
 }
 ```
+
+### Ignoring Vulnerabilities
+
+Using a custom config (`--config fileName.yml`), you can specify a list of CPEs to ignore.
+
+{{< hint info >}}
+You need to specify the "matched-cpe" or URI binding representation in the packages to ignore. Wildcards will not work.
+{{< /hint >}}
+
+```bash
+❯ cat /tmp/customConfig.yml
+ignore-packages:
+  - "cpe:/a:i18n_project:i18n:::~~~asp.net~~"
+  - "cpe:/a:python:python"
+```
+
+{{< hint info >}}
+By default, if you don't specify a custom config, we automatically exclude `cpe:/a:apple:icloud:1.0` as there are several hundred vulnerabilities from it. You can use an empty custom config:
+
+```yaml
+ignore-packages:
+ - ""
+```
+{{< /hint >}}
+
+```bash
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" -v "/tmp:/mnt/config" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --config /mnt/config/customConfig.yml --report-file /mnt/config/report_i18n_python.txt
+ ✔ Indexed Data Volume      ✔ Cataloged packages      [220 packages]
+ ✔ Indexed System Volume    ✔ Cataloged packages      [345 packages]
+Report written to "/mnt/config/report_i18n_python.txt"
+```
