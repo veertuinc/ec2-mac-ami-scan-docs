@@ -48,6 +48,10 @@ Use "anka-scan [command] --help" for more information about a command.
 - ~200MBs of space
 - 16GB of RAM or more
 
+{{< hint warning >}}
+If using docker, be sure that docker itself has access to more than 8GBs of memory.
+{{< /hint >}}
+
 ## Usage
 
 {{< hint info >}}
