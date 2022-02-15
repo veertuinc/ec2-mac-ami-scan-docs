@@ -7,10 +7,7 @@ type: "docs"
 {{< include file="_partials/what-is/_short.md" >}}
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/veertu/anka-scan:0.2.0 --help                
-
-] You are using a beta/trial version which expires on 2022-02-28
-
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/veertu/anka-scan:0.2.0 --help
 A vulnerability scanner for Anka VMs and images.
 
 Supported commands/types:
@@ -52,10 +49,10 @@ Use "anka-scan [command] --help" for more information about a command.
 If using docker, be sure that docker itself has access to more than 8GBs of memory.
 {{< /hint >}}
 
-## Usage
+## Usage (Docker)
 
 {{< hint info >}}
-While in beta, we are providing only a docker image/tag for running the scanner. The database is inside of the container for now.
+While in beta, the database is inside of the container and cannot be updated. However, we plan on allow you to update the database in a user friendly way.
 {{< /hint >}}
 
 There are two different commands/types available in the scanner:
@@ -317,4 +314,39 @@ ignore-packages:
  ✔ Indexed Data Volume      ✔ Cataloged packages      [220 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [345 packages]
 Report written to "/mnt/config/report_i18n_python.txt"
+```
+
+## Using the macOS binary
+
+1. [Download the latest macOS package](https://veertu.com/downloads/anka-scan-macos-intel/)
+
+The instructions for using the macOS package are identical in many ways. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
+
+```bash
+❯ ./_release/anka-scan --storage-dir "/Library/Application Support/Veertu/Anka/registry" registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
+ ✔ Indexed Data Volume     
+ ✔ Cataloged packages      [222 packages]
+ ✔ Indexed System Volume   
+ ✔ Cataloged packages      [345 packages]
+
+TYPE       NAME      VERSION   VULNERABILITY   SCORE  SEVERITY 
+gem        i18n      0.9.5     CVE-2020-7791   7.5    high      
+gem        i18n      1.8.11    CVE-2020-7791   7.5    high      
+gem        parallel  1.21.0    CVE-2015-4155   3.6    low       
+gem        parallel  1.21.0    CVE-2015-4156   3.6    low       
+gem        webrick   1.7.0     CVE-2008-1145   5.0    medium    
+macos-app  python    3.8.9     CVE-2021-29921  9.8    critical  
+macos-app  python    2.7.18    CVE-2019-20907  7.5    high      
+macos-app  python    2.7.18    CVE-2019-9674   7.5    high      
+macos-app  python    2.7.18    CVE-2021-23336  5.9    medium    
+macos-app  python    2.7.18    CVE-2015-5652   7.2    high      
+macos-app  python    2.7.18    CVE-2017-17522  8.8    high      
+macos-app  python    2.7.18    CVE-2017-18207  6.5    medium    
+python     numpy     1.8.0rc1  CVE-2014-1858   5.5    medium    
+python     numpy     1.8.0rc1  CVE-2014-1859   5.5    medium    
+python     numpy     1.8.0rc1  CVE-2017-12852  7.5    high      
+python     numpy     1.8.0rc1  CVE-2019-6446   9.8    critical  
+python     numpy     1.8.0rc1  CVE-2021-41496  7.5    high      
+python     numpy     1.8.0rc1  CVE-2021-41495  7.5    high      
+python     numpy     1.8.0rc1  CVE-2021-34141  5.3    medium
 ```
