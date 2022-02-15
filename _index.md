@@ -318,7 +318,7 @@ Report written to "/mnt/config/report_i18n_python.txt"
 
 ## Using the macOS binary
 
-1. [Download the latest macOS package](https://veertu.com/downloads/anka-scan-macos-intel/)
+[Download the latest macOS package](https://veertu.com/downloads/anka-scan-macos-intel/)
 
 The instructions for using the macOS package are identical in many ways. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
 
