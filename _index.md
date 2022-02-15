@@ -7,7 +7,7 @@ type: "docs"
 {{< include file="_partials/what-is/_short.md" >}}
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/veertu/anka-scan:0.2.0 --help
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/veertu/anka-scan:0.2.1 --help
 A vulnerability scanner for Anka VMs and images.
 
 Supported commands/types:
@@ -68,7 +68,7 @@ Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-fo
 
 ```bash
 export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry"
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" public.ecr.aws/veertu/anka-scan:0.2.1 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -89,7 +89,7 @@ python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical
 Or, write the report to a file:
 
 ```bash
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" public.ecr.aws/veertu/anka-scan:0.2.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" public.ecr.aws/veertu/anka-scan:0.2.1 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 Report written to "/reports/report-12_06_2021_16:44"
@@ -129,7 +129,7 @@ hard_drives:
 network_cards:
 - mode: shared
 
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
  ✔ Indexed Data Volume      ✔ Cataloged packages      [214 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -163,7 +163,7 @@ The use of `--quite` here is important to avoid any output which is not json par
 {{< /hint >}}
 
 ```bash
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
 {
  "matches": [
   {
@@ -310,7 +310,7 @@ ignore-packages:
 {{< /hint >}}
 
 ```bash
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" -v "/tmp:/mnt/config" public.ecr.aws/veertu/anka-scan:0.2.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --config /mnt/config/customConfig.yml --report-file /mnt/config/report_i18n_python.txt
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" -v "/tmp:/mnt/config" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --config /mnt/config/customConfig.yml --report-file /mnt/config/report_i18n_python.txt
  ✔ Indexed Data Volume      ✔ Cataloged packages      [220 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [345 packages]
 Report written to "/mnt/config/report_i18n_python.txt"
