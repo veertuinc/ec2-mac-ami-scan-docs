@@ -159,7 +159,7 @@ python     numpy         1.8.0rc1  CVE-2014-1859   5.5    medium
 By default the human readable table output does not include paths or other information about how the vulnerability was found. Fortunately, we allow you to produce verbose JSON output with that information.
 
 {{< hint info >}}
-The use of `--quite` here is important to avoid any output which is not json parsable.
+The use of `--quiet` here is important to avoid any output which is not json parsable.
 {{< /hint >}}
 
 ```bash
