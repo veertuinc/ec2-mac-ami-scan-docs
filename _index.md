@@ -7,13 +7,14 @@ type: "docs"
 {{< include file="_partials/what-is/_short.md" >}}
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt public.ecr.aws/veertu/anka-scan:0.2.1 --help
+❯ anka-scan --help
+
 A vulnerability scanner for Anka VMs and images.
 
 Supported commands/types:
   anka-scan registry_template:uuid[:tag]    | Read and scan from registry Anka VM using the UUID and optional tag
                                             - [:tag] defaults to latest tag
-  anka-scan ank_image:/path/to/image.ank    | Read and scan using an Anka image at the specified path
+  anka-scan ank_image:/path/to/image.ank    | Read and scan using an Anka VM ank image/file at the specified path
   anka-scan dir:/path/to/folder             | Scan from the specified path
 
 Usage:
@@ -21,14 +22,17 @@ Usage:
   anka-scan [command]
 
 Available Commands:
-  completion  generate the autocompletion script for the specified shell
+  completion  Generate the autocompletion script for the specified shell
   help        Help about any command
   version     show the version
 
 Flags:
   -c, --config string          application config file
+  -u, --disable-db-update      Disable updating scanner DB automatically
   -h, --help                   help for anka-scan
   -i, --ignore-system-volume   do not scan the system volume (for anka VM)
+      --min-score float32      Don't show vulnerabilites with lesser score
+      --min-severity string    Don't show vulnerabilites with lesser severity
   -q, --quiet                  suppress all console output
   -o, --report-file string     write report to file
   -f, --report-format string   report output format, formats=[json table] (default "table")
@@ -38,29 +42,57 @@ Flags:
 Use "anka-scan [command] --help" for more information about a command.
 ```
 
-## Prerequisites
+## Usage (Linux/Docker)
+
+Download the package:
+
+```bash
+FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/anka-scan-linux) | cut -d/ -f5)
+PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.zip' '{print $1}')
+mkdir -p $PARTIAL_FILE_NAME
+cd $PARTIAL_FILE_NAME
+curl -Ls https://veertu.com/downloads/anka-scan-linux -o $FULL_FILE_NAME
+unzip $FULL_FILE_NAME
+rm -f $FULL_FILE_NAME
+```
+
+### Prerequisites
 
 - Access to the Anka Registry storage directory
-- Docker
+- (optional) Install Docker
 - ~200MBs of space
 - 16GB of RAM or more
 
+### Docker
+
 {{< hint warning >}}
-If using docker, be sure that docker itself has access to more than 8GBs of memory.
+If using docker, be sure that the docker service itself has access to more than 8GBs of memory.
 {{< /hint >}}
 
-## Usage (Docker)
+If you decide to use docker, you'll need to build the tag locally using the zip package's Dockerfile.
 
-{{< hint info >}}
-While in beta, the database is inside of the container and cannot be updated. However, we plan on allow you to update the database in a user friendly way.
-{{< /hint >}}
+```bash
+cd anka-scan-linux-*
+docker build --force-rm --tag anka-scan:0.3.0 .
+```
+
+Once built, you can run the following:
+
+```bash
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt anka-scan:0.3.0 registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
+ ✔ Checking for vulnerability DB updates [Done]
+  . . .
+```
+
+
+### Features / Examples
 
 There are two different commands/types available in the scanner:
 
 1. [`registry_template`](#anka-registry-vm)
 2. [`ank_image`](#ank-image)
 
-### Anka Registry VM
+#### Anka Registry VM
 
 This type will automatically scan the registry storage directory you've mounted and find the proper .ank file to scan. It's essentially `anka_image` under the hood.
 
@@ -68,7 +100,7 @@ Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-fo
 
 ```bash
 export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry"
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" public.ecr.aws/veertu/anka-scan:0.2.1 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" anka-scan:0.3.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -89,7 +121,7 @@ python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical
 Or, write the report to a file:
 
 ```bash
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" public.ecr.aws/veertu/anka-scan:0.2.1 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" anka-scan:0.3.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 Report written to "/reports/report-12_06_2021_16:44"
@@ -109,7 +141,7 @@ python     numpy         1.8.0rc1  CVE-2017-12852  7.5    high
 python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical  
 ```
 
-### Ank Image
+#### Ank Image
 
 If you're a more advanced user, you can determine the root .ank file inside of the metadata yaml for your VM/Template. This allows you to scan on your registry but also on an Anka host machine as well.
 
@@ -129,7 +161,7 @@ hard_drives:
 network_cards:
 - mode: shared
 
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" anka-scan:0.3.0 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
  ✔ Indexed Data Volume      ✔ Cataloged packages      [214 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -154,7 +186,7 @@ python     numpy         1.8.0rc1  CVE-2014-1859   5.5    medium
 ```
 
 
-### Report Formats
+#### Report Formats
 
 By default the human readable table output does not include paths or other information about how the vulnerability was found. Fortunately, we allow you to produce verbose JSON output with that information.
 
@@ -163,7 +195,7 @@ The use of `--quiet` here is important to avoid any output which is not json par
 {{< /hint >}}
 
 ```bash
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" anka-scan:0.3.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
 {
  "matches": [
   {
@@ -285,7 +317,7 @@ The use of `--quiet` here is important to avoid any output which is not json par
 }
 ```
 
-### Ignoring Vulnerabilities
+#### Ignoring Vulnerabilities
 
 Using a custom config (`--config fileName.yml`), you can specify a list of CPEs to ignore.
 
@@ -316,7 +348,7 @@ ignore-packages:
 Report written to "/mnt/config/report_i18n_python.txt"
 ```
 
-## Using the macOS binary
+## Usage (macOS)
 
 [Download the latest macOS package](https://veertu.com/downloads/anka-scan-macos-intel/)
 
