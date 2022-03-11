@@ -73,15 +73,12 @@ If you decide to use docker, you'll need to build the tag locally using a Docker
 
 ```bash
 cd anka-scan-linux-*
-* Manualy edit the anka-scan-config.yaml and change db-path: anka-scan.db to db-path: /tmp/anka-scan.db * (you can also modify the anka-scan.log location to /tmp as well)
+* Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' (you can also modify the anka-scan.log location to /tmp as well) *
 cat << SCRIPT > Dockerfile
-FROM alpine:latest as certs
+FROM alpine:latest
 RUN apk --update add ca-certificates
-FROM scratch
-COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
-COPY anka-scan_linux_amd64 /anka-scan
-COPY anka-scan-config.yaml /
-WORKDIR /tmp
+COPY anka-scan_linux_amd64 anka-scan
+COPY anka-scan-config.yaml anka-scan-config.yaml
 ENTRYPOINT ["/anka-scan"]
 SCRIPT
 docker build --force-rm --tag anka-scan:0.3.0 .
