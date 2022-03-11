@@ -73,7 +73,10 @@ If you decide to use docker, you'll need to build the tag locally using a Docker
 
 ```bash
 cd anka-scan-linux-*
-* Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' (you can also modify the anka-scan.log location to /tmp as well) *
+*
+  Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
+  You can also modify the anka-scan.log location to /tmp as well
+*
 cat << SCRIPT > Dockerfile
 FROM alpine:latest
 RUN apk --update add ca-certificates
@@ -91,7 +94,6 @@ Once built, you can then run the following to start the scan:
  ✔ Vulnerability DB Updates [Completed]
   . . .
 ```
-
 
 ### Features / Examples
 
