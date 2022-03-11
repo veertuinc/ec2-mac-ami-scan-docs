@@ -48,11 +48,11 @@ Download the package:
 
 ```bash
 FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/anka-scan-linux) | cut -d/ -f5)
-PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.zip' '{print $1}')
+PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.tar.gz' '{print $1}')
 mkdir -p $PARTIAL_FILE_NAME
 cd $PARTIAL_FILE_NAME
 curl -Ls https://veertu.com/downloads/anka-scan-linux -o $FULL_FILE_NAME
-unzip $FULL_FILE_NAME
+tar -xzvf $FULL_FILE_NAME
 rm -f $FULL_FILE_NAME
 ```
 
@@ -69,18 +69,29 @@ rm -f $FULL_FILE_NAME
 If using docker, be sure that the docker service itself has access to more than 8GBs of memory.
 {{< /hint >}}
 
-If you decide to use docker, you'll need to build the tag locally using the zip package's Dockerfile.
+If you decide to use docker, you'll need to build the tag locally using a Dockerfile. It must be built with the configuration included inside to allow mounting of the anka-scan.db file from the host (else, it will download the .db each time you need to run the scan and cause delays/networking costs):
 
 ```bash
 cd anka-scan-linux-*
+* Manualy edit the anka-scan-config.yaml and change db-path: anka-scan.db to db-path: /tmp/anka-scan.db * (you can also modify the anka-scan.log location to /tmp as well)
+cat << SCRIPT > Dockerfile
+FROM alpine:latest as certs
+RUN apk --update add ca-certificates
+FROM scratch
+COPY --from=certs /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY anka-scan_linux_amd64 /anka-scan
+COPY anka-scan-config.yaml /
+WORKDIR /tmp
+ENTRYPOINT ["/anka-scan"]
+SCRIPT
 docker build --force-rm --tag anka-scan:0.3.0 .
 ```
 
-Once built, you can run the following:
+Once built, you can then run the following to start the scan:
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt anka-scan:0.3.0 registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
- ✔ Checking for vulnerability DB updates [Done]
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt -v $PWD:/tmp anka-scan:0.3.0 registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
+ ✔ Vulnerability DB Updates [Completed]
   . . .
 ```
 
