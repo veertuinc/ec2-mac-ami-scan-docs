@@ -78,8 +78,8 @@ cd anka-scan-linux-*
   You can also modify the anka-scan.log location to /tmp as well
 *
 cat << SCRIPT > Dockerfile
-FROM alpine:latest
-RUN apk --update add ca-certificates
+FROM debian:stable-slim
+RUN apt -qq update && apt install --yes ca-certificates
 COPY anka-scan_linux_amd64 anka-scan
 COPY anka-scan-config.yaml anka-scan-config.yaml
 ENTRYPOINT ["/anka-scan"]
