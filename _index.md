@@ -24,13 +24,15 @@ Usage:
 Available Commands:
   completion  Generate the autocompletion script for the specified shell
   help        Help about any command
-  version     show the version
+  license     License show/activate
+  version     Show the version
 
 Flags:
   -c, --config string          application config file
   -u, --disable-db-update      Disable updating scanner DB automatically
   -h, --help                   help for anka-scan
   -i, --ignore-system-volume   do not scan the system volume (for anka VM)
+  -l, --license-file string    license file path (default "scanner.lic")
       --min-score float32      Don't show vulnerabilites with lesser score
       --min-severity string    Don't show vulnerabilites with lesser severity
   -q, --quiet                  suppress all console output
@@ -41,6 +43,49 @@ Flags:
 
 Use "anka-scan [command] --help" for more information about a command.
 ```
+
+## Licensing
+
+
+### How to License
+
+```bash
+❯ anka-scan license         
+License show/activate
+
+Usage:
+  anka-scan license [command]
+
+Available Commands:
+  activate    Activate the license
+  show        Show the license
+
+Flags:
+  -h, --help   help for license
+
+Global Flags:
+  -c, --config string         application config file
+  -l, --license-file string   license file path (default "scanner.lic")
+
+Use "anka-scan license [command] --help" for more information about a command.
+```
+
+```bash
+❯ anka-scan ank_image:/Users/veertu/Library/Application\ Support/Veertu/Anka/img_lib/3f5287822a404b61aaabfc065e0b3141.ank                     
+Error: Failed to validate the license 'scanner.lic': No such file or directory
+
+❯ anka-scan license activate XXXX-XXXX-XXXX-XXXX
+Activated
+
+❯ anka-scan license show
+Product:          com.veertu.anka.scan
+Version:          1.0
+Expiration Date:  31-mar-2022
+```
+
+{{< hint info >}}
+By default the `scanner.lic` file is created in the directory where you execute `anka-scan license activate`. If you execute `anka-scan` in a directory outside of the location with the `scanner.lic`, it will not see the file. You can however set the path `anka-scan` looks for the license file in by modifying the `anka-scan-config.yaml` and it's `license-file: 'scanner.lic'` to a different location.
+{{< /hint >}}
 
 ## Usage (Linux/Docker)
 
@@ -322,7 +367,7 @@ The use of `--quiet` here is important to avoid any output which is not json par
  ],
  "source": {
   "type": "anka image",
-  "target": "/Users/nathanpierce/Library/Application Support/Veertu/Anka/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank"
+  "target": "/Users/veertu/Library/Application Support/Veertu/Anka/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank"
  }
 }
 ```
