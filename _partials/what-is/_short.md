@@ -7,7 +7,3 @@ The Veertu Anka Scan software solution scans for vulnerabilities in Anka images 
 {{< hint info >}}
 We are also working to increase the scope of the Veertu Anka Scan to also scan and report vulnerabilities in AWS EC2 macOS AMIs and not just Anka images.
 {{< /hint >}}
-
-{{< hint warning >}}
-Currently in beta.
-{{< /hint >}}

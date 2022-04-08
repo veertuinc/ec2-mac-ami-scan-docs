@@ -46,42 +46,44 @@ Use "anka-scan [command] --help" for more information about a command.
 
 ## Licensing
 
-
 ### How to License
 
-```bash
-❯ anka-scan license         
-License show/activate
+1. [Obtain a trial or full license]()
+2. Execute the license CLI to activate it:
 
-Usage:
-  anka-scan license [command]
+    ```bash
+    ❯ anka-scan license         
+    License show/activate
 
-Available Commands:
-  activate    Activate the license
-  show        Show the license
+    Usage:
+      anka-scan license [command]
 
-Flags:
-  -h, --help   help for license
+    Available Commands:
+      activate    Activate the license
+      show        Show the license
 
-Global Flags:
-  -c, --config string         application config file
-  -l, --license-file string   license file path (default "scanner.lic")
+    Flags:
+      -h, --help   help for license
 
-Use "anka-scan license [command] --help" for more information about a command.
-```
+    Global Flags:
+      -c, --config string         application config file
+      -l, --license-file string   license file path (default "scanner.lic")
 
-```bash
-❯ anka-scan ank_image:/Users/veertu/Library/Application\ Support/Veertu/Anka/img_lib/3f5287822a404b61aaabfc065e0b3141.ank                     
-Error: Failed to validate the license 'scanner.lic': No such file or directory
+    Use "anka-scan license [command] --help" for more information about a command.
+    ```
 
-❯ anka-scan license activate XXXX-XXXX-XXXX-XXXX
-Activated
+    ```bash
+    ❯ anka-scan ank_image:/Users/veertu/Library/Application\ Support/Veertu/Anka/img_lib/3f5287822a404b61aaabfc065e0b3141.ank                     
+    Error: Failed to validate the license 'scanner.lic': No such file or directory
 
-❯ anka-scan license show
-Product:          com.veertu.anka.scan
-Version:          1.0
-Expiration Date:  31-mar-2022
-```
+    ❯ anka-scan license activate XXXX-XXXX-XXXX-XXXX
+    Activated
+
+    ❯ anka-scan license show
+    Product:          com.veertu.anka.scan
+    Version:          1.0
+    Expiration Date:  31-mar-2022
+    ```
 
 {{< hint info >}}
 By default the `scanner.lic` file is created in the directory where you execute `anka-scan license activate`. If you execute `anka-scan` in a directory outside of the location with the `scanner.lic`, it will not see the file. You can however set the path `anka-scan` looks for the license file in by modifying the `anka-scan-config.yaml` and it's `license-file: 'scanner.lic'` to a different location.
@@ -128,15 +130,10 @@ ARG license
 RUN apt -qq update && apt install --yes ca-certificates
 COPY anka-scan_linux_amd64 anka-scan
 COPY anka-scan-config.yaml anka-scan-config.yaml
-RUN cat << BLOCK > /launcher \
-  #/usr/bin/env bash \
-  set -eo pipefail \
-  /anka-scan license activate ${license} \
-  /anka-scan \
-BLOCK
-ENTRYPOINT ["/launcher"]
+RUN /anka-scan license activate \${license}
+ENTRYPOINT ["/anka-scan"]
 SCRIPT
-docker build --build-arg license=XXXX-XXXX-XXXX-XXXX --force-rm --tag anka-scan:latest .
+docker build --force-rm --tag anka-scan:latest --build-arg license=XXXX-XXXX-XXXX-XXXX .
 ```
 
 Once built, you can then run the following to start the scan:
