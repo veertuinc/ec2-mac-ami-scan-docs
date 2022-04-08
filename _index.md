@@ -124,18 +124,25 @@ cd anka-scan-linux-*
 *
 cat << SCRIPT > Dockerfile
 FROM debian:stable-slim
+ARG license
 RUN apt -qq update && apt install --yes ca-certificates
 COPY anka-scan_linux_amd64 anka-scan
 COPY anka-scan-config.yaml anka-scan-config.yaml
-ENTRYPOINT ["/anka-scan"]
+RUN cat << BLOCK > /launcher \
+  #/usr/bin/env bash \
+  set -eo pipefail \
+  /anka-scan license activate ${license} \
+  /anka-scan \
+BLOCK
+ENTRYPOINT ["/launcher"]
 SCRIPT
-docker build --force-rm --tag anka-scan:0.3.0 .
+docker build --build-arg license=XXXX-XXXX-XXXX-XXXX --force-rm --tag anka-scan:latest .
 ```
 
 Once built, you can then run the following to start the scan:
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt -v $PWD:/tmp anka-scan:0.3.0 registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt -v $PWD:/tmp anka-scan:latest registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
  ✔ Vulnerability DB Updates [Completed]
   . . .
 ```
