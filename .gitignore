@@ -9,3 +9,6 @@ resources/_gen/
 tmp
 .hugo_build.lock
 report-*
+anka-scan.log
+scanner.lic
+anka-scan.db*
