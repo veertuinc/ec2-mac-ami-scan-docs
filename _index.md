@@ -400,6 +400,14 @@ ignore-packages:
 ```
 {{< /hint >}}
 
+Or, you can ignore specific CVEs:
+
+```bash
+❯ cat /tmp/customConfig.yml
+ignore-cves:
+  - "CVE-2020-7791"
+```
+
 ```bash
 ❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" -v "/tmp:/mnt/config" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --config /mnt/config/customConfig.yml --report-file /mnt/config/report_i18n_python.txt
  ✔ Indexed Data Volume      ✔ Cataloged packages      [220 packages]
