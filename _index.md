@@ -427,7 +427,7 @@ ignore-cves:
 ```
 
 ```bash
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" -v "/tmp:/mnt/config" public.ecr.aws/veertu/anka-scan:0.2.1 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --config /mnt/config/customConfig.yml --report-file /mnt/config/report_i18n_python.txt
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" -v "/tmp:/mnt/config" public.ecr.aws/veertu/anka-scan:latest ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --config /mnt/config/customConfig.yml --report-file /mnt/config/report_i18n_python.txt
  ✔ Indexed Data Volume      ✔ Cataloged packages      [220 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [345 packages]
 Report written to "/mnt/config/report_i18n_python.txt"
@@ -435,7 +435,7 @@ Report written to "/mnt/config/report_i18n_python.txt"
 
 ## Usage (macOS)
 
-[Download the latest macOS package](https://veertu.com/downloads/anka-scan-macos-intel/)
+[Download the latest macOS package](https://veertu.com/downloads/anka-scan-darwin/)
 
 The instructions for using the macOS package are identical in many ways to docker. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
 
