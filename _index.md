@@ -44,7 +44,7 @@ Flags:
 Use "anka-scan [command] --help" for more information about a command.
 ```
 
-## Licensing
+<!-- ## Licensing
 
 ### How to License
 
@@ -87,7 +87,7 @@ Use "anka-scan [command] --help" for more information about a command.
 
 {{< hint info >}}
 By default the `scanner.lic` file is created in the directory where you execute `anka-scan license activate`. If you execute `anka-scan` in a directory outside of the location with the `scanner.lic`, it will not see the file. You can however set the path `anka-scan` looks for the license file in by modifying the `anka-scan-config.yaml` and it's `license-file: 'scanner.lic'` to a different location.
-{{< /hint >}}
+{{< /hint >}} -->
 
 ## Usage (Linux/Docker)
 
@@ -133,8 +133,26 @@ COPY anka-scan-config.yaml anka-scan-config.yaml
 RUN /anka-scan license activate \${license}
 ENTRYPOINT ["/anka-scan"]
 SCRIPT
-docker build --force-rm --tag anka-scan:latest --build-arg license=XXXX-XXXX-XXXX-XXXX .
+docker build --force-rm --tag anka-scan:latest .
 ```
+
+<!-- ```bash
+cd anka-scan-linux-*
+*
+  Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
+  You can also modify the anka-scan.log location to /tmp as well
+*
+cat << SCRIPT > Dockerfile
+FROM debian:stable-slim
+ARG license
+RUN apt -qq update && apt install --yes ca-certificates
+COPY anka-scan_linux_amd64 anka-scan
+COPY anka-scan-config.yaml anka-scan-config.yaml
+RUN /anka-scan license activate \${license}
+ENTRYPOINT ["/anka-scan"]
+SCRIPT
+docker build --force-rm --tag anka-scan:latest --build-arg license=XXXX-XXXX-XXXX-XXXX .
+``` -->
 
 Once built, you can then run the following to start the scan:
 
@@ -159,7 +177,7 @@ Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-fo
 
 ```bash
 export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry"
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" anka-scan:0.3.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" anka-scan:latest registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -180,7 +198,7 @@ python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical
 Or, write the report to a file:
 
 ```bash
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" anka-scan:0.3.0 registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" anka-scan:latest registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 Report written to "/reports/report-12_06_2021_16:44"
@@ -220,7 +238,7 @@ hard_drives:
 network_cards:
 - mode: shared
 
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" anka-scan:0.3.0 ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" anka-scan:latest ank_image:/mnt/img_lib/ce87816df16f4661a1be0684add6ca2f.ank
  ✔ Indexed Data Volume      ✔ Cataloged packages      [214 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
 
@@ -254,7 +272,7 @@ The use of `--quiet` here is important to avoid any output which is not json par
 {{< /hint >}}
 
 ```bash
-❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" anka-scan:0.3.0 ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
+❯ docker run -it --rm -v "$(anka config img_lib_dir)/..:/mnt" anka-scan:latest ank_image:/mnt/img_lib/c2deedc229ae4e8b967aef0ddf4b2813.ank --report-format json --quiet
 {
  "matches": [
   {
