@@ -175,7 +175,7 @@ This type will automatically scan the registry storage directory you've mounted 
 Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-forward-22`, and `vanilla+port-forward-22+brew-git`. If I wanted to scan `vanilla`, I would run:
 
 ```bash
-export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry"
+export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry" # this location is where my macOS registry is running; it may differ if you're running on linux or have configured it differently.
 ❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" anka-scan:latest registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
  ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
  ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
