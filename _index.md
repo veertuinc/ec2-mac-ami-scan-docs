@@ -121,7 +121,7 @@ If you decide to use docker, you'll need to build the tag locally using a Docker
 ```bash
 cd anka-scan-linux-*
 *
-  Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
+  Manually edit the example-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
   You can also modify the anka-scan.log location to /tmp as well
 *
 cat << SCRIPT > Dockerfile
@@ -129,8 +129,7 @@ FROM debian:stable-slim
 ARG license
 RUN apt -qq update && apt install --yes ca-certificates
 COPY anka-scan_linux_amd64 anka-scan
-COPY anka-scan-config.yaml anka-scan-config.yaml
-RUN /anka-scan license activate \${license}
+COPY example-config.yaml anka-scan.yaml
 ENTRYPOINT ["/anka-scan"]
 SCRIPT
 docker build --force-rm --tag anka-scan:latest .
@@ -147,7 +146,7 @@ FROM debian:stable-slim
 ARG license
 RUN apt -qq update && apt install --yes ca-certificates
 COPY anka-scan_linux_amd64 anka-scan
-COPY anka-scan-config.yaml anka-scan-config.yaml
+COPY example-config.yaml anka-scan.yaml
 RUN /anka-scan license activate \${license}
 ENTRYPOINT ["/anka-scan"]
 SCRIPT
@@ -396,14 +395,14 @@ The use of `--quiet` here is important to avoid any output which is not json par
 
 #### Ignoring Vulnerabilities
 
-Using a custom config (`--config fileName.yml`), you can specify a list of CPEs to ignore.
+Using a custom config (`--config customConfig.yaml`), you can specify a list of CPEs to ignore.
 
 {{< hint info >}}
 You need to specify the "matched-cpe" or URI binding representation in the packages to ignore. Wildcards will not work.
 {{< /hint >}}
 
 ```bash
-❯ cat /tmp/customConfig.yml
+❯ cat /tmp/customConfig.yaml
 ignore-packages:
   - "cpe:/a:i18n_project:i18n:::~~~asp.net~~"
   - "cpe:/a:python:python"
@@ -421,7 +420,7 @@ ignore-packages:
 Or, you can ignore specific CVEs:
 
 ```bash
-❯ cat /tmp/customConfig.yml
+❯ cat /tmp/customConfig.yaml
 ignore-cves:
   - "CVE-2020-7791"
 ```
