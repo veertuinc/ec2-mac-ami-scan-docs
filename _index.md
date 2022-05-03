@@ -44,7 +44,7 @@ Flags:
 Use "anka-scan [command] --help" for more information about a command.
 ```
 
-<!-- ## Licensing
+## Licensing
 
 ### How to License
 
@@ -87,7 +87,7 @@ Use "anka-scan [command] --help" for more information about a command.
 
 {{< hint info >}}
 By default the `scanner.lic` file is created in the directory where you execute `anka-scan license activate`. If you execute `anka-scan` in a directory outside of the location with the `scanner.lic`, it will not see the file. You can however set the path `anka-scan` looks for the license file in by modifying the `anka-scan-config.yaml` and it's `license-file: 'scanner.lic'` to a different location.
-{{< /hint >}} -->
+{{< /hint >}}
 
 ## Usage (Linux/Docker)
 
@@ -121,23 +121,6 @@ If you decide to use docker, you'll need to build the tag locally using a Docker
 ```bash
 cd anka-scan-linux-*
 *
-  Manually edit the example-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
-  You can also modify the anka-scan.log location to /tmp as well
-*
-cat << SCRIPT > Dockerfile
-FROM debian:stable-slim
-ARG license
-RUN apt -qq update && apt install --yes ca-certificates
-COPY anka-scan_linux_amd64 anka-scan
-COPY example-config.yaml anka-scan.yaml
-ENTRYPOINT ["/anka-scan"]
-SCRIPT
-docker build --force-rm --tag anka-scan:latest .
-```
-
-<!-- ```bash
-cd anka-scan-linux-*
-*
   Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
   You can also modify the anka-scan.log location to /tmp as well
 *
@@ -151,7 +134,7 @@ RUN /anka-scan license activate \${license}
 ENTRYPOINT ["/anka-scan"]
 SCRIPT
 docker build --force-rm --tag anka-scan:latest --build-arg license=XXXX-XXXX-XXXX-XXXX .
-``` -->
+```
 
 Once built, you can then run the following to start the scan:
 
