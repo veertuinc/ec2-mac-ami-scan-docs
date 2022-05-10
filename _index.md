@@ -129,7 +129,7 @@ FROM debian:stable-slim
 ARG license
 RUN apt -qq update && apt install --yes ca-certificates
 COPY anka-scan_linux_amd64 anka-scan
-COPY example-config.yaml anka-scan.yaml
+COPY config-example.yaml anka-scan.yaml
 RUN /anka-scan license activate \${license}
 ENTRYPOINT ["/anka-scan"]
 SCRIPT
