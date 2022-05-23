@@ -139,9 +139,22 @@ docker build --force-rm --tag anka-scan:latest --build-arg license=XXXX-XXXX-XXX
 Once built, you can then run the following to start the scan:
 
 ```bash
-❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt anka-scan:latest registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
- ✔ Vulnerability DB Updates [Completed]
-  . . .
+❯ docker run -it --rm -v /Library/Application\ Support/Veertu/Anka/registry:/mnt anka-scan:latest registry_template:c12ccfa5-8757-411e-9505-128190e9854e
+ ✔ Vulnerability DB Update [completed]
+ ✔ Cataloged packages      [112 packages]
+ ✔ Indexed Data Volume     
+ ✔ Cataloged packages      [287 packages]
+ ✔ Indexed System Volume   
+ ✔ Analyzed packages       [8 vulnerabilities]
+TYPE       NAME      VERSION  VULNERABILITY   SCORE  SEVERITY 
+gem        parallel  1.22.1   CVE-2015-4155   3.6    low       
+gem        parallel  1.22.1   CVE-2015-4156   3.6    low       
+macos-app  python    3.8.9    CVE-2015-20107  10.0   critical  
+macos-app  python    3.8.9    CVE-2021-29921  9.8    critical  
+macos-app  python    3.8.9    CVE-2021-3737   7.5    high      
+macos-app  python    3.8.9    CVE-2022-0391   7.5    high      
+macos-app  python    3.8.9    CVE-2022-26488  7.0    high      
+python     pip       20.2.3   CVE-2021-3572   5.7    medium
 ```
 
 ### Features / Examples
@@ -159,45 +172,44 @@ Let's say I have three tags for an Anka VM Template: `vanilla`, `vanilla+port-fo
 
 ```bash
 export REGISTRY_PATH="/Library/Application Support/Veertu/Anka/registry" # this location is where my macOS registry is running; it may differ if you're running on linux or have configured it differently.
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" anka-scan:latest registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla
- ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
- ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
-
-TYPE       NAME          VERSION   VULNERABILITY   SCORE  SEVERITY 
-macos-app  python        2.7.18    CVE-2017-17522  8.8    high      
-macos-app  python        2.7.18    CVE-2021-23336  5.9    medium    
-macos-app  python        2.7.18    CVE-2015-5652   7.2    high      
-macos-app  python        2.7.18    CVE-2017-18207  6.5    medium    
-macos-app  python        2.7.18    CVE-2019-20907  7.5    high      
-macos-app  python        2.7.18    CVE-2019-9674   7.5    high      
-python     cryptography  2.9.2     CVE-2020-36242  9.1    critical  
-python     numpy         1.8.0rc1  CVE-2014-1859   5.5    medium    
-python     numpy         1.8.0rc1  CVE-2014-1858   5.5    medium    
-python     numpy         1.8.0rc1  CVE-2017-12852  7.5    high      
-python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical 
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" anka-scan:latest registry_template:c0847bc9-5d2d-4dbc-ba6a-240f7ff08032
+ ✔ Vulnerability DB Update [completed]
+ ✔ Cataloged packages      [125 packages]
+ ✔ Indexed Data Volume     
+ ✔ Cataloged packages      [287 packages]
+ ✔ Indexed System Volume   
+ ✔ Analyzed packages       [6 vulnerabilities]
+TYPE       NAME      VERSION  VULNERABILITY   SCORE  SEVERITY 
+gem        parallel  1.22.1   CVE-2015-4155   3.6    low       
+gem        parallel  1.22.1   CVE-2015-4156   3.6    low       
+macos-app  python    3.8.9    CVE-2015-20107  10.0   critical  
+macos-app  python    3.8.9    CVE-2021-29921  9.8    critical  
+macos-app  python    3.8.9    CVE-2021-3737   7.5    high      
+python     pip       20.2.3   CVE-2021-3572   5.7    medium 
 ```
 
 Or, write the report to a file:
 
 ```bash
-❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" anka-scan:latest registry_template:ea663a61-0e5c-4419-8194-697104fb693a:vanilla --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
- ✔ Indexed Data Volume      ✔ Cataloged packages      [10 packages]
- ✔ Indexed System Volume    ✔ Cataloged packages      [344 packages]
-Report written to "/reports/report-12_06_2021_16:44"
+❯ docker run -it --rm -v "${REGISTRY_PATH}:/mnt" -v "$(pwd):/reports" anka-scan:latest registry_template:c0847bc9-5d2d-4dbc-ba6a-240f7ff08032:v1 --report-file /reports/report-$(date +"%m_%d_%Y_%H:%M")
+ ✔ Vulnerability DB Update [completed]
+ ✔ Cataloged packages      [125 packages]
+ ✔ Indexed Data Volume     
+ ✔ Cataloged packages      [287 packages]
+ ✔ Indexed System Volume   
+ ✔ Analyzed packages       [8 vulnerabilities]
+Report written to "/reports/report-05_23_2022_15:57"
 
-❯ cat report-12_06_2021_16:44 
-TYPE       NAME          VERSION   VULNERABILITY   SCORE  SEVERITY 
-macos-app  python        2.7.18    CVE-2019-20907  7.5    high      
-macos-app  python        2.7.18    CVE-2019-9674   7.5    high      
-macos-app  python        2.7.18    CVE-2021-23336  5.9    medium    
-macos-app  python        2.7.18    CVE-2017-17522  8.8    high      
-macos-app  python        2.7.18    CVE-2015-5652   7.2    high      
-macos-app  python        2.7.18    CVE-2017-18207  6.5    medium    
-python     cryptography  2.9.2     CVE-2020-36242  9.1    critical  
-python     numpy         1.8.0rc1  CVE-2014-1859   5.5    medium    
-python     numpy         1.8.0rc1  CVE-2014-1858   5.5    medium    
-python     numpy         1.8.0rc1  CVE-2017-12852  7.5    high      
-python     numpy         1.8.0rc1  CVE-2019-6446   9.8    critical  
+❯ cat report-05_23_2022_15:57 
+TYPE       NAME      VERSION  VULNERABILITY   SCORE  SEVERITY 
+gem        parallel  1.22.1   CVE-2015-4155   3.6    low       
+gem        parallel  1.22.1   CVE-2015-4156   3.6    low       
+macos-app  python    3.8.9    CVE-2015-20107  10.0   critical  
+macos-app  python    3.8.9    CVE-2021-29921  9.8    critical  
+macos-app  python    3.8.9    CVE-2021-3737   7.5    high      
+macos-app  python    3.8.9    CVE-2022-0391   7.5    high      
+macos-app  python    3.8.9    CVE-2022-26488  7.0    high      
+python     pip       20.2.3   CVE-2021-3572   5.7    medium  
 ```
 
 #### Ank Image
@@ -422,30 +434,22 @@ Report written to "/mnt/config/report_i18n_python.txt"
 The instructions for using the macOS package are identical in many ways to docker. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
 
 ```bash
-❯ ./anka-scan_darwin_universal --storage-dir "/Library/Application Support/Veertu/Anka/registry" registry_template:c12ccfa5-8757-411e-9505-128190e9854e 
+❯ ./anka-scan_darwin_universal --storage-dir "/Library/Application Support/Veertu/Anka/registry" registry_template:c0847bc9-5d2d-4dbc-ba6a-240f7ff08032
+ ✔ Vulnerability DB Update [completed]
+ ✔ Cataloged packages      [125 packages]
  ✔ Indexed Data Volume     
- ✔ Cataloged packages      [222 packages]
+ ✔ Cataloged packages      [287 packages]
  ✔ Indexed System Volume   
- ✔ Cataloged packages      [345 packages]
+ ✔ Analyzed packages       [10 vulnerabilities]
 
-TYPE       NAME      VERSION   VULNERABILITY   SCORE  SEVERITY 
-gem        i18n      0.9.5     CVE-2020-7791   7.5    high      
-gem        i18n      1.8.11    CVE-2020-7791   7.5    high      
-gem        parallel  1.21.0    CVE-2015-4155   3.6    low       
-gem        parallel  1.21.0    CVE-2015-4156   3.6    low       
-gem        webrick   1.7.0     CVE-2008-1145   5.0    medium    
-macos-app  python    3.8.9     CVE-2021-29921  9.8    critical  
-macos-app  python    2.7.18    CVE-2019-20907  7.5    high      
-macos-app  python    2.7.18    CVE-2019-9674   7.5    high      
-macos-app  python    2.7.18    CVE-2021-23336  5.9    medium    
-macos-app  python    2.7.18    CVE-2015-5652   7.2    high      
-macos-app  python    2.7.18    CVE-2017-17522  8.8    high      
-macos-app  python    2.7.18    CVE-2017-18207  6.5    medium    
-python     numpy     1.8.0rc1  CVE-2014-1858   5.5    medium    
-python     numpy     1.8.0rc1  CVE-2014-1859   5.5    medium    
-python     numpy     1.8.0rc1  CVE-2017-12852  7.5    high      
-python     numpy     1.8.0rc1  CVE-2019-6446   9.8    critical  
-python     numpy     1.8.0rc1  CVE-2021-41496  7.5    high      
-python     numpy     1.8.0rc1  CVE-2021-41495  7.5    high      
-python     numpy     1.8.0rc1  CVE-2021-34141  5.3    medium
+TYPE       NAME      VERSION  VULNERABILITY   SCORE  SEVERITY 
+gem        i18n      1.10.0   CVE-2020-7791   7.5    high      
+gem        parallel  1.22.1   CVE-2015-4155   3.6    low       
+gem        parallel  1.22.1   CVE-2015-4156   3.6    low       
+macos-app  python    3.8.9    CVE-2015-20107  10.0   critical  
+macos-app  python    3.8.9    CVE-2021-29921  9.8    critical  
+macos-app  python    3.8.9    CVE-2021-3737   7.5    high      
+macos-app  python    3.8.9    CVE-2022-0391   7.5    high      
+macos-app  python    3.8.9    CVE-2022-26488  7.0    high      
+python     pip       20.2.3   CVE-2021-3572   5.7    medium 
 ```
