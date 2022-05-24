@@ -111,10 +111,6 @@ rm -f $FULL_FILE_NAME
 
 ### Docker
 
-{{< hint warning >}}
-If using docker, be sure that the docker service itself has access to more than 8GBs of memory.
-{{< /hint >}}
-
 If you decide to use docker, you'll need to build the tag locally using a Dockerfile. It must be built with the configuration included inside to allow mounting of the anka-scan.db file from the host (else, it will download the .db each time you need to run the scan and cause delays/networking costs):
 
 ```bash
