@@ -108,7 +108,6 @@ rm -f $FULL_FILE_NAME
 - Access to the Anka Registry storage directory
 - (optional) Install Docker
 - ~200MBs of space
-- 16GB of RAM or more
 
 ### Docker
 
