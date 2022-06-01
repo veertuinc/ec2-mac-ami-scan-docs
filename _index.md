@@ -7,13 +7,13 @@ type: "docs"
 {{< include file="_partials/what-is/_short.md" >}}
 
 ```bash
-❯ anka-scan --help
+❯ _release/anka-scan --help
 
 A vulnerability scanner for Anka VMs and images.
 
 Supported commands/types:
   anka-scan registry_template:uuid[:tag]    | Read and scan from registry Anka VM using the UUID and optional tag
-                                            - [:tag] defaults to latest tag
+                                    - [:tag] defaults to latest tag
   anka-scan ank_image:/path/to/image.ank    | Read and scan using an Anka VM ank image/file at the specified path
   anka-scan dir:/path/to/folder             | Scan from the specified path
 
@@ -29,17 +29,17 @@ Available Commands:
 
 Flags:
   -c, --config string          application config file
-  -u, --disable-db-update      Disable updating scanner DB automatically
+  -u, --disable-db-update      disable updating scanner DB automatically
   -h, --help                   help for anka-scan
   -i, --ignore-system-volume   do not scan the system volume (for anka VM)
   -l, --license-file string    license file path (default "scanner.lic")
-      --min-score float32      Don't show vulnerabilites with lesser score
-      --min-severity string    Don't show vulnerabilites with lesser severity
+      --min-score float32      don't show vulnerabilities with lesser score
+      --min-severity string    don't show vulnerabilities with lesser severity
   -q, --quiet                  suppress all console output
   -o, --report-file string     write report to file
   -f, --report-format string   report output format, formats=[json table] (default "table")
   -p, --show-packages          do not scan and only show packages
-  -s, --storage-dir string     the location of the registry storage containing *_lib directories (default "/mnt")
+  -s, --storage-dir string     the location of the registry storage containing *_dir directories (default "/mnt")
 
 Use "anka-scan [command] --help" for more information about a command.
 ```
@@ -91,6 +91,12 @@ By default the `scanner.lic` file is created in the directory where you execute 
 
 ## Usage (Linux/Docker)
 
+Currently, we provide a scanner binary for each linux distribution that has been requested by our customers. They are then archived into a tar.gz and available on our site or at https://downloads.veertu.com/#anka-scan/.
+
+{{< hint info >}}
+If you do not see your distro binary, please reach out to support@veertu.com.
+{{< /hint >}}
+
 Download the package:
 
 ```bash
@@ -123,7 +129,7 @@ cat << SCRIPT > Dockerfile
 FROM debian:stable-slim
 ARG license
 RUN apt -qq update && apt install --yes ca-certificates
-COPY anka-scan_linux_amd64 anka-scan
+COPY anka-scan_debian_amd64 anka-scan
 COPY config-example.yaml anka-scan.yaml
 RUN /anka-scan license activate \${license}
 ENTRYPOINT ["/anka-scan"]
