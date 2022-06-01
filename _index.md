@@ -48,7 +48,7 @@ Use "anka-scan [command] --help" for more information about a command.
 
 ### How to License
 
-1. [Obtain a trial or full license]()
+1. [Obtain a trial or full license](https://veertu.com/anka-scan-trial/)
 2. Execute the license CLI to activate it:
 
     ```bash
