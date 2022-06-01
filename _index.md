@@ -121,7 +121,7 @@ If you decide to use docker, you'll need to build the tag locally using a Docker
 
 ```bash
 ***
-  Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
+  Manually edit the config-example.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
   You can also modify the anka-scan.log location to /tmp as well
 ***
 cat << SCRIPT > Dockerfile
