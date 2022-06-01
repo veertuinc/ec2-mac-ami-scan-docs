@@ -120,11 +120,10 @@ rm -f $FULL_FILE_NAME
 If you decide to use docker, you'll need to build the tag locally using a Dockerfile. It must be built with the configuration included inside to allow mounting of the anka-scan.db file from the host (else, it will download the .db each time you need to run the scan and cause delays/networking costs):
 
 ```bash
-cd anka-scan-linux-*
-*
+***
   Manually edit the anka-scan-config.yaml and change 'db-path: anka-scan.db' to 'db-path: /tmp/anka-scan.db' 
   You can also modify the anka-scan.log location to /tmp as well
-*
+***
 cat << SCRIPT > Dockerfile
 FROM debian:stable-slim
 ARG license
