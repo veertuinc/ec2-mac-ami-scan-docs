@@ -93,25 +93,26 @@ By default the `scanner.lic` file is created in the directory where you execute 
 
 Currently, we provide a scanner binary for each linux distribution that has been requested by our customers. They are then archived into a tar.gz and available on our site or at https://downloads.veertu.com/#anka-scan/.
 
+### Installation
+
+1. [Download the latest Linux package.](https://veertu.com/downloads/anka-scan-linux/)
+    ```bash
+    FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/anka-scan-linux) | cut -d/ -f5)
+    PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.tar.gz' '{print $1}')
+    mkdir -p $PARTIAL_FILE_NAME
+    cd $PARTIAL_FILE_NAME
+    curl -Ls https://veertu.com/downloads/anka-scan-linux -o $FULL_FILE_NAME
+    tar -xzvf $FULL_FILE_NAME
+    rm -f $FULL_FILE_NAME
+    ```
+2. Place the binary under /usr/local/bin (or just execute with `./` in-place).
+
 {{< hint info >}}
 If you do not see your distro binary, please reach out to support@veertu.com.
 {{< /hint >}}
 
-Download the package:
-
-```bash
-FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/anka-scan-linux) | cut -d/ -f5)
-PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.tar.gz' '{print $1}')
-mkdir -p $PARTIAL_FILE_NAME
-cd $PARTIAL_FILE_NAME
-curl -Ls https://veertu.com/downloads/anka-scan-linux -o $FULL_FILE_NAME
-tar -xzvf $FULL_FILE_NAME
-rm -f $FULL_FILE_NAME
-```
-
 ### Prerequisites
 
-- Access to the Anka Registry storage directory
 - (optional) Install Docker
 - ~200MBs of space
 
@@ -433,7 +434,19 @@ Report written to "/mnt/config/report_i18n_python.txt"
 
 - ~200MBs of space
 
-[Download the latest macOS package](https://veertu.com/downloads/anka-scan-darwin/)
+### Installation
+
+1. [Download the latest macOS package.](https://veertu.com/downloads/anka-scan-darwin/)
+    ```bash
+    FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/anka-scan-darwin) | cut -d/ -f5)
+    PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.zip' '{print $1}')
+    mkdir -p $PARTIAL_FILE_NAME
+    cd $PARTIAL_FILE_NAME
+    curl -Ls https://veertu.com/downloads/anka-scan-darwin -o $FULL_FILE_NAME
+    unzip $FULL_FILE_NAME
+    rm -f $FULL_FILE_NAME
+    ```
+2. Unarchive and place the binary under /usr/local/bin (or just execute with `./` in-place).
 
 The instructions for using the macOS package are identical in many ways to Linux/Docker. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
 
