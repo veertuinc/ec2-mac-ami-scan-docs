@@ -429,9 +429,13 @@ Report written to "/mnt/config/report_i18n_python.txt"
 
 ## Usage (macOS)
 
+### Prerequisites
+
+- ~200MBs of space
+
 [Download the latest macOS package](https://veertu.com/downloads/anka-scan-darwin/)
 
-The instructions for using the macOS package are identical in many ways to docker. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
+The instructions for using the macOS package are identical in many ways to Linux/Docker. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
 
 ```bash
 ❯ ./anka-scan_darwin_universal --storage-dir "/Library/Application Support/Veertu/Anka/registry" registry_template:c0847bc9-5d2d-4dbc-ba6a-240f7ff08032
