@@ -451,7 +451,7 @@ Report written to "/mnt/config/report_i18n_python.txt"
 The instructions for using the macOS package are identical in many ways to Linux/Docker. The major differences are that the default `--storage-dir` for the binary is `/mnt` and likely not where your registry storage is located on macOS. You also of course do not include docker commands when executing the binary.
 
 ```bash
-❯ ./anka-scan_darwin_universal --storage-dir "/Library/Application Support/Veertu/Anka/registry" registry_template:c0847bc9-5d2d-4dbc-ba6a-240f7ff08032
+❯ ./anka-scan_darwin --storage-dir "/Library/Application Support/Veertu/Anka/registry" registry_template:c0847bc9-5d2d-4dbc-ba6a-240f7ff08032
  ✔ Vulnerability DB Update [completed]
  ✔ Cataloged packages      [125 packages]
  ✔ Indexed Data Volume     
