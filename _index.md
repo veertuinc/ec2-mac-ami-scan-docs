@@ -93,6 +93,11 @@ By default the `scanner.lic` file is created in the directory where you execute 
 
 Currently, we provide a scanner binary for each linux distribution that has been requested by our customers. They are then archived into a tar.gz and available on our site or at https://downloads.veertu.com/#anka-scan/.
 
+### Prerequisites
+
+- (optional) Install Docker
+- ~200MBs of space
+
 ### Installation
 
 1. [Download the latest Linux package.](https://veertu.com/downloads/anka-scan-linux/)
@@ -110,11 +115,6 @@ Currently, we provide a scanner binary for each linux distribution that has been
 {{< hint info >}}
 If you do not see your distro binary, please reach out to support@veertu.com.
 {{< /hint >}}
-
-### Prerequisites
-
-- (optional) Install Docker
-- ~200MBs of space
 
 ### Docker
 
