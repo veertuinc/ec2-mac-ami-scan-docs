@@ -44,6 +44,12 @@ Flags:
 Use "anka-scan [command] --help" for more information about a command.
 ```
 
+### Minimum Requirements
+
+- 1 CPU (which will be fully used)
+- ~4GB of ram
+- ~500MBs of space
+
 ## Licensing
 
 ### How to License
@@ -96,7 +102,7 @@ Currently, we provide a scanner binary for each linux distribution that has been
 ### Prerequisites
 
 - (optional) Install Docker
-- ~200MBs of space
+- ~500MBs of space
 
 ### Installation
 
