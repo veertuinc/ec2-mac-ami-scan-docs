@@ -95,6 +95,48 @@ Use "anka-scan [command] --help" for more information about a command.
 By default the `scanner.lic` file is created in the directory where you execute `anka-scan license activate`. If you execute `anka-scan` in a directory outside of the location with the `scanner.lic`, it will not see the file. You can however set the path `anka-scan` looks for the license file in by modifying the `anka-scan-config.yaml` and it's `license-file: 'scanner.lic'` to a different location.
 {{< /hint >}}
 
+
+
+## Preparing IAM
+
+1. [Create a custom policy with the following permissions:](https://us-east-1.console.aws.amazon.com/iamv2/home#/policies)
+    - ec2.DescribeVolumes
+    - ec2.DescribeInstanceAttribute
+    - ec2.CreateVolume
+    - ec2.DeleteVolume
+    - ec2.AttachVolume
+    - ec2.DetachVolume
+    - ec2.DescribeImages
+    - ec2.CreateTags
+
+Create an EC2 SERVICE role and attach the policy you created above
+
+Start an ec2 Amazon Linux instance in the same region as you have the AMI you wish to scan
+
+Attach the previously created role in one of the following methods:
+
+Attach the role to the instance
+
+Set up aws inside the instance with “aws configure” command
+
+Execute: ami-scanner_linux_amd64 license activate <LICENSE_KEY_HERE>
+
+Execute: ami-scanner_linux_amd64 <AMI_ID_HERE>
+
+For more options and output formats execute: ami-scanner_linux_amd64 --help
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Usage (Linux/Docker)
 
 Currently, we provide a scanner binary for each linux distribution that has been requested by our customers. They are then archived into a tar.gz and available on our site or at https://downloads.veertu.com/#anka-scan/.
