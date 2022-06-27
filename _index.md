@@ -44,7 +44,7 @@ Use "ami-scanner_amazonlinux_amd64 [command] --help" for more information about 
 
 ### How to License
 
-1. [Obtain a trial or full license](https://veertu.com/anka-scan-trial/)
+1. [Obtain a trial or full license](https://veertu.com/ami-scanner-trial/)
 2. Execute the license CLI to activate it:
 
     ```bash
