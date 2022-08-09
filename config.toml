@@ -40,7 +40,7 @@ author = "Veertu, Inc."
 description = "Documentation for Veertu's AWS EC2 Mac AMI Scan Software"
 copyright = "Copyright Veertu, Inc."
 downloads_link = "https://veertu.com/download-aws-ec2-mac-ami-scan/"
-github_repo = "https://github.com/veertuinc/ami-scanner-docs"
+github_repo = "https://github.com/veertuinc/ec2-mac-ami-scan-docs"
 github_branch = "main"
 suggest_edit = true
 
@@ -97,7 +97,7 @@ icon = "fab fa-slack"
 desc = "Chat with us on slack"
 [[params.links.developer]]
 name = "GitHub"
-url = "https://github.com/veertuinc/ami-scanner-docs"
+url = "https://github.com/veertuinc/ec2-mac-ami-scan-docs"
 icon = "fab fa-github"
 desc = "Anka AWS EC2 Mac AMI Scan Documentation Github"
 
