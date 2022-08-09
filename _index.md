@@ -89,7 +89,7 @@ By default the `scanner.lic` file is created in the directory where you execute 
 
 ## Preparing an EC2 instance
 
-- Create an EC2 instance with a minimum of 1 CPU, 0.5GiB of RAM, and ~1GB of space for storage of the vulnerability database.
+- Create a **Linux** EC2 instance with a minimum of 1 CPU, 0.5GiB of RAM, and ~1GB of space for storage of the vulnerability database.
 
 - In order to have the permissions necessary for mounting AMI volumes and scanning them, you can either:
 
@@ -108,7 +108,7 @@ By default the `scanner.lic` file is created in the directory where you execute 
 ## Usage
 
 {{< hint warning >}}
-**You must have access to the AMI snapshot in the same region as your EC2 instance in order to scan it. You cannot currently scan across regions.**
+**You must have access to the AMI snapshot in the same region as your EC2 instance in order to scan it. You cannot currently scan across regions. You can, however, deploy instances of EC2 Mac AMI Scanner across multiple regions.**
 {{< /hint >}}
 
 Currently, we provide a scanner binary for each linux distribution that has been requested by our customers. They are then archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan.
