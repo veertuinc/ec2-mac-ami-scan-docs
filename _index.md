@@ -73,10 +73,11 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
     Error: failed to validate the license 'scanner.lic': No such file or directory
     ```
 
-    [ec2-user@ip-172-31-52-78 ~]$ ./ami-scanner_amazonlinux_amd64 license activate XXXX-XXXX-XXXX-XXXX
+    ```bash
+    sh-4.2$ ./ec2-mac-ami-scan license activate XXXX-XXXX-XXXX-XXXX
     Activated
 
-    [ec2-user@ip-172-31-52-78 ~]$ sudo ./ami-scanner_amazonlinux_amd64 license show
+    sh-4.2$ ./ec2-mac-ami-scan license show
     Product:          com.veertu.macami.scan
     Version:          1.0
     Expiration Date:  31-dec-2022
