@@ -108,7 +108,7 @@ By default the `scanner.lic` file is created in the directory where you execute 
 ## Usage
 
 {{< hint warning >}}
-**The scanner will not scan marketplace or community AMIs without a snapshot. You must have access to the AMI snapshot in the same region as your EC2 instance in order to scan it. You also cannot currently scan across regions. You can, however, deploy instances of EC2 Mac AMI Scanner in multiple regions.**
+**The scanner will not scan marketplace AMIs. Also, you cannot scan community/public AMIs without a snapshot. You must have access to the AMI snapshot in the same region as your EC2 instance in order to scan it. You also cannot currently scan across regions. You can, however, deploy instances of EC2 Mac AMI Scanner in multiple regions.**
 {{< /hint >}}
 
 Currently, we provide a scanner binary for each linux distribution that has been requested by our customers. They are then archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan.
