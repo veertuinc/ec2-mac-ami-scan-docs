@@ -57,7 +57,7 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 {{< /hint >}}
 
 {{< hint warning >}}
-**Currently, we only provide a scanner binary for Amazon Linux. It is archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan.**
+**Currently, we only provide a scanner binary for Amazon Linux. It is archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan/.**
 {{< /hint >}}
 
 ### Preparing an EC2 instance
