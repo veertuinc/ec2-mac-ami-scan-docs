@@ -39,14 +39,14 @@ hrefTargetBlank = true
 author = "Veertu, Inc."
 description = "Documentation for Veertu's AWS EC2 Mac AMI Scan Software"
 copyright = "Copyright Veertu, Inc."
-downloads_link = "https://veertu.com/download-aws-ec2-mac-ami-scan/"
+downloads_link = "https://veertu.com/downloads/ec2-mac-ami-scan-linux"
 github_repo = "https://github.com/veertuinc/ec2-mac-ami-scan-docs"
 github_branch = "main"
 suggest_edit = true
 
 version_menu = "Version Snapshots"
 archived_version = false
-version = "0.0.1"
+version = "1.0.0"
 url_latest_version = "https://docs.veertu.com/ec2-mac-ami-scan"
 
 # permalink = "#"
