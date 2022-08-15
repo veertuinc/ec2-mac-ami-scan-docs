@@ -80,7 +80,7 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 
 ### Installation
 
-1. [Download the latest Linux package.](https://veertu.com/downloads/ec2-mac-ami-scan/)
+1. [Download the latest Linux package.](https://veertu.com/downloads/ec2-mac-ami-scan-linux/)
     ```bash
     FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/ec2-mac-ami-scan-linux) | cut -d/ -f5)
     PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.tar.gz' '{print $1}')
@@ -89,6 +89,7 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
     curl -Ls https://veertu.com/downloads/ec2-mac-ami-scan-linux -o $FULL_FILE_NAME
     tar -xzvf $FULL_FILE_NAME
     rm -f $FULL_FILE_NAME
+    
     ```
 2. Place the binary under /usr/local/bin (or just execute with `./` in-place).
 
