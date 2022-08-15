@@ -94,7 +94,7 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 
 ### Licensing
 
-### How to License
+#### How to License
 
 1. [Obtain a trial or full license](https://veertu.com/ec2-mac-ami-scan-trial/)
 2. Execute the license CLI to activate it:
