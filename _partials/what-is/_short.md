@@ -1,7 +1,7 @@
 ---
 ---
 
-# About the AWS EC2 Mac AMI Scan
+# Getting Started with the AWS EC2 Mac AMI Scan
 
 The Veertu AWS EC2 Mac AMI Scan software solution scans for vulnerabilities in your Mac AMIs using an NVD database. The scanner identifies vulnerabilities in third-party dependencies, packages, and libraries, including Brew, Golang, Javascript, Java, Ruby, Python, Rust, etc.
 

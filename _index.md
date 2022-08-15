@@ -1,6 +1,5 @@
 ---
-title: >
-  Getting Started
+title: AWS EC2 Mac AMI Scan
 type: "docs"
 ---
 
@@ -40,7 +39,60 @@ Flags:
 Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 ```
 
-## Licensing
+---
+
+## Getting Started
+
+{{< hint warning >}}
+**You cannot scan AMIs without having access to their snapshot. Because of this, the scanner will not scan marketplace AMIs or Community/public AMIs without a public snapshot.**
+{{< /hint >}}
+
+{{< hint warning >}}
+**You must have access to the AMI snapshot in the same region as your EC2 instance in order to scan it. You also cannot currently scan across regions. You can, however, deploy instances of EC2 Mac AMI Scanner in multiple regions.**
+{{< /hint >}}
+
+{{< hint warning >}}
+**Currently, we only provide a scanner binary for Amazon Linux. It is archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan.**
+{{< /hint >}}
+
+1. [Start an Amazon Linux EC2 Instance and prepare it with your credentials.](#preparing-an-ec2-instance)
+2. [Install the AWS EC2 Mac AMI Scan binary.](#installation)
+3. [Obtain a license and license the scanner.](#licensing)
+4. [Review the usage guide.](#usage)
+
+### Preparing an EC2 instance
+
+- Create an **Amazon Linux** EC2 instance with a minimum of 1 CPU, 0.5GiB of RAM, and ~1GB of space for storage of the vulnerability database.
+
+- In order to have the permissions necessary for mounting AMI volumes and scanning them, you can either:
+
+    1. Create and attach an ec2 service policy to the instance and ensure it has the following permissions.
+    2. Configure the instance with `sudo aws configure` (scanning requires and will run as root) through SSH using an Access key and secret for a user that has the following permissions.
+
+        - ec2.DescribeVolumes
+        - ec2.DescribeInstanceAttribute
+        - ec2.CreateVolume
+        - ec2.DeleteVolume
+        - ec2.AttachVolume
+        - ec2.DetachVolume
+        - ec2.DescribeImages
+        - ec2.CreateTags
+
+### Installation
+
+1. [Download the latest Linux package.](https://veertu.com/downloads/ec2-mac-ami-scan/)
+    ```bash
+    FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/ec2-mac-ami-scan) | cut -d/ -f5)
+    PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.tar.gz' '{print $1}')
+    mkdir -p $PARTIAL_FILE_NAME
+    cd $PARTIAL_FILE_NAME
+    curl -Ls https://veertu.com/downloads/ec2-mac-ami-scan -o $FULL_FILE_NAME
+    tar -xzvf $FULL_FILE_NAME
+    rm -f $FULL_FILE_NAME
+    ```
+2. Place the binary under /usr/local/bin (or just execute with `./` in-place).
+
+### Licensing
 
 ### How to License
 
@@ -87,47 +139,7 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 By default the `scanner.lic` file is created in the directory where you execute `license activate`. If you execute the scanner in a directory outside of the location with the `scanner.lic`, it will not see the file and fail. You can however set the path the scanner looks for the license file in by modifying the `config-example.yaml` and the `license-file: 'scanner.lic'` to a different location.
 {{< /hint >}}
 
-## Preparing an EC2 instance
-
-- Create an **Amazon Linux** EC2 instance with a minimum of 1 CPU, 0.5GiB of RAM, and ~1GB of space for storage of the vulnerability database.
-
-- In order to have the permissions necessary for mounting AMI volumes and scanning them, you can either:
-
-    1. Create and attach an ec2 service policy to the instance and ensure it has the following permissions.
-    2. Configure the instance with `sudo aws configure` (scanning requires and will run as root) through SSH using an Access key and secret for a user that has the following permissions.
-
-        - ec2.DescribeVolumes
-        - ec2.DescribeInstanceAttribute
-        - ec2.CreateVolume
-        - ec2.DeleteVolume
-        - ec2.AttachVolume
-        - ec2.DetachVolume
-        - ec2.DescribeImages
-        - ec2.CreateTags
-
 ## Usage
-
-{{< hint warning >}}
-**The scanner will not scan marketplace AMIs. Also, you cannot scan community/public AMIs without a snapshot. You must have access to the AMI snapshot in the same region as your EC2 instance in order to scan it. You also cannot currently scan across regions. You can, however, deploy instances of EC2 Mac AMI Scanner in multiple regions.**
-{{< /hint >}}
-
-{{< hint warning >}}
-**Currently, we only provide a scanner binary for Amazon Linux. It is archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan.**
-{{< /hint >}}
-
-### Installation
-
-1. [Download the latest Linux package.](https://veertu.com/downloads/ec2-mac-ami-scan/)
-    ```bash
-    FULL_FILE_NAME=$(echo $(curl -Ls -r 0-1 -o /dev/null -w %{url_effective} https://veertu.com/downloads/ec2-mac-ami-scan) | cut -d/ -f5)
-    PARTIAL_FILE_NAME=$(echo $FULL_FILE_NAME | awk -F'.tar.gz' '{print $1}')
-    mkdir -p $PARTIAL_FILE_NAME
-    cd $PARTIAL_FILE_NAME
-    curl -Ls https://veertu.com/downloads/ec2-mac-ami-scan -o $FULL_FILE_NAME
-    tar -xzvf $FULL_FILE_NAME
-    rm -f $FULL_FILE_NAME
-    ```
-2. Place the binary under /usr/local/bin (or just execute with `./` in-place).
 
 ### Features / Examples
 
