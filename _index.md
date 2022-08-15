@@ -43,6 +43,12 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 
 ## Getting Started
 
+1. [Start an Amazon Linux EC2 Instance and prepare it with your credentials.](#preparing-an-ec2-instance)
+2. [Install the AWS EC2 Mac AMI Scan binary.](#installation)
+3. [Obtain a license and license the scanner.](#licensing)
+4. [Review the usage guide.](#usage)
+
+
 {{< hint warning >}}
 **You cannot scan AMIs without having access to their snapshot. Because of this, the scanner will not scan marketplace AMIs or Community/public AMIs without a public snapshot.**
 {{< /hint >}}
@@ -54,11 +60,6 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 {{< hint warning >}}
 **Currently, we only provide a scanner binary for Amazon Linux. It is archived into a tar.gz and available on our site or at https://downloads.veertu.com/#ec2-mac-ami-scan.**
 {{< /hint >}}
-
-1. [Start an Amazon Linux EC2 Instance and prepare it with your credentials.](#preparing-an-ec2-instance)
-2. [Install the AWS EC2 Mac AMI Scan binary.](#installation)
-3. [Obtain a license and license the scanner.](#licensing)
-4. [Review the usage guide.](#usage)
 
 ### Preparing an EC2 instance
 
