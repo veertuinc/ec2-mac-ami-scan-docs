@@ -295,3 +295,9 @@ sh-4.2$ sudo ./ec2-mac-ami-scan ami-07eec7bea34f42837 --report-format json --con
  ✔ Analyzed packages       [357 vulnerabilities]
 Report written to "/tmp/report_i18n_python.json"
 ```
+
+## Release Notes
+
+### 1.1.0 - Sep 7th, 2022
+
+- **Improvement:** Volumes are now mounted as gp3 with 10000 IOPs and 256 throughput for more consistent speed, regardless of volume size being scanned.
