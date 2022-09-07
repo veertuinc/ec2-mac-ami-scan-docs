@@ -46,7 +46,7 @@ suggest_edit = true
 
 version_menu = "Version Snapshots"
 archived_version = false
-version = "1.0.0"
+version = "1.1.0"
 url_latest_version = "https://docs.veertu.com/ec2-mac-ami-scan"
 
 # permalink = "#"
