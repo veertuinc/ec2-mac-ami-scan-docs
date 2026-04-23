@@ -1,4 +1,6 @@
 ---
 
+DirectoryPath: build
+BaseUrl: http://localhost:3000/ec2-mac-ami-scan
 IgnoreInternalEmptyHash: true
 IgnoreAltMissing: true

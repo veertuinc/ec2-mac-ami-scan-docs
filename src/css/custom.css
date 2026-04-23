@@ -1,0 +1,25 @@
+/**
+ * Veertu-style accents (deep purple primary, pink accent from Docsy palette).
+ */
+:root {
+  --ifm-color-primary: #5c2d91;
+  --ifm-color-primary-dark: #4a2477;
+  --ifm-color-primary-darker: #3e1f63;
+  --ifm-color-primary-darkest: #331a52;
+  --ifm-color-primary-light: #6e3ba8;
+  --ifm-color-primary-lighter: #7d4bb3;
+  --ifm-color-primary-lightest: #9a6fcc;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(92, 45, 145, 0.1);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #b794f4;
+  --ifm-color-primary-dark: #a17ee8;
+  --ifm-color-primary-darker: #9470e0;
+  --ifm-color-primary-darkest: #7c5ad0;
+  --ifm-color-primary-light: #c5aaf8;
+  --ifm-color-primary-lighter: #d4c0fb;
+  --ifm-color-primary-lightest: #e8defd;
+  --docusaurus-highlighted-code-line-bg: rgba(183, 148, 244, 0.15);
+}

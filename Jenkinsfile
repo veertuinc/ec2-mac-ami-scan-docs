@@ -1,8 +1,8 @@
 pipeline {
     agent { node { label 'everything-linux-ec2-t2micro' } }
-    options { 
+    options {
       disableConcurrentBuilds()
-      timeout(time: 10, unit: 'MINUTES')
+      timeout(time: 15, unit: 'MINUTES')
       skipStagesAfterUnstable()
     }
     stages {
@@ -10,9 +10,9 @@ pipeline {
           steps {
             sh """
             source ~/.bashrc &>/dev/null
-            nvm install 12.21.0
-            nvm use 12.21.0
-            npm install
+            nvm install 20
+            nvm use 20
+            npm ci
             """
           }
         }
@@ -21,50 +21,42 @@ pipeline {
           steps {
             sh """
               source ~/.bashrc &>/dev/null
-              nvm use 12.21.0
+              nvm use 20
               curl https://htmltest.wjdp.uk | bash
-              npx hugo server &
               npm run html-test-build
-              ./bin/htmltest -c .htmltest.yml public/
+              npx docusaurus serve --port 3000 --no-open &
+              SERVE_PID=$!
+              sleep 8
+              ./bin/htmltest -c .htmltest.yml build
+              kill $SERVE_PID
             """
           }
         }
-        // stage("generate version snapshots") {
-        //     when { anyOf { 
-        //       branch 'master';
-        //       branch 'staging'; 
-        //     } }
-        //     steps {
-        //         withAWS(credentials:'jenkins-iam', region: 'us-west-2') {
-        //           sh './generate-version-snapshots.bash'
-        //         }
-        //     }
-        // }
         stage("build staging") {
             when { anyOf { branch 'staging' }}
             steps {
-                sh 'source ~/.bashrc &>/dev/null; nvm use 12.21.0 && npm run staging-build'
+                sh 'source ~/.bashrc &>/dev/null; nvm use 20 && npm run staging-build'
             }
         }
         stage("deploy staging") {
             when { anyOf { branch 'staging' }}
             steps {
               withAWS(credentials:'jenkins-iam', region: 'us-west-2') {
-                sh 'source ~/.bashrc &>/dev/null; nvm use 12.21.0 && npm run staging-deploy'
+                sh 'source ~/.bashrc &>/dev/null; nvm use 20 && npm run staging-deploy'
               }
             }
         }
         stage("build public") {
             when { anyOf { branch 'master' }}
             steps {
-                sh 'source ~/.bashrc &>/dev/null; nvm use 12.21.0 && npm run public-build'
+                sh 'source ~/.bashrc &>/dev/null; nvm use 20 && npm run public-build'
             }
         }
         stage("deploy public") {
             when { anyOf { branch 'master' }}
             steps {
               withAWS(credentials:'jenkins-iam', region: 'us-west-2') {
-                sh 'source ~/.bashrc &>/dev/null; nvm use 12.21.0 &&npm run public-deploy'
+                sh 'source ~/.bashrc &>/dev/null; nvm use 20 && npm run public-deploy'
               }
             }
         }

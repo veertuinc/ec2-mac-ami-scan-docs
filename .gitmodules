@@ -1,6 +1,0 @@
-[submodule "themes/docsy"]
-	path = themes/docsy
-	url = git@github.com:veertuinc/docsy.git
-[submodule "content"]
-	path = content
-	url = git@github.com:veertuinc/ec2-mac-ami-scan-docs.git

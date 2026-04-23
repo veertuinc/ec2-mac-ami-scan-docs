@@ -1,26 +1,57 @@
 {
   "name": "ec2-mac-ami-scan-docs",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "private": true,
+  "description": "Veertu AWS EC2 Mac AMI Scan documentation (Docusaurus)",
   "scripts": {
-    "staging-build": "npx hugo --minify --baseURL http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com/ec2-mac-ami-scan/",
-    "staging-deploy": "npx hugo deploy -v --target=staging --maxDeletes -1",
-    "html-test-build": "npx hugo -e production --minify --baseURL http://localhost:1313/ec2-mac-ami-scan/",
-    "public-build": "npx hugo -e production --minify --baseURL https://docs.veertu.com/ec2-mac-ami-scan",
-    "public-deploy": "npx hugo deploy --target=latest --invalidateCDN --force --maxDeletes -1"
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "serve": "docusaurus serve",
+    "clear": "docusaurus clear",
+    "typecheck": "tsc",
+    "staging-build": "DOCUSAURUS_URL=http://veertu-docs-staging.s3-website-us-west-2.amazonaws.com docusaurus build",
+    "public-build": "DOCUSAURUS_URL=https://docs.veertu.com docusaurus build",
+    "html-test-build": "DOCUSAURUS_URL=http://localhost:3000 docusaurus build",
+    "staging-deploy": "aws s3 sync build/ s3://veertu-docs-staging/ec2-mac-ami-scan/ --delete --region us-west-2",
+    "public-deploy": "aws s3 sync build/ s3://veertu-docs/ec2-mac-ami-scan/ --delete --region us-west-2 && aws cloudfront create-invalidation --distribution-id E1HL1WPGFI84XU --paths '/ec2-mac-ami-scan/*'"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/veertunew/ec2-mac-ami-scan-docs.git"
   },
-  "author": "",
   "license": "ISC",
   "homepage": "https://github.com/veertuinc/ec2-mac-ami-scan",
-  "dependencies": {},
+  "dependencies": {
+    "@docusaurus/core": "3.10.0",
+    "@docusaurus/faster": "3.10.0",
+    "@docusaurus/preset-classic": "3.10.0",
+    "@mdx-js/react": "^3.0.0",
+    "clsx": "^2.0.0",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
-    "autoprefixer": "^9.7.3",
-    "hugo-extended": "^0.89.4-extended",
-    "postcss-cli": "^6.1.3"
+    "@docusaurus/module-type-aliases": "3.10.0",
+    "@docusaurus/tsconfig": "3.10.0",
+    "@docusaurus/types": "3.10.0",
+    "@types/react": "^19.0.0",
+    "typescript": "~6.0.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=20.0"
   }
 }

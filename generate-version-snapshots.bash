@@ -3,7 +3,12 @@ set -exo pipefail
 PAGER=""
 REGION="us-west-1"
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-CURRENT_VERSION=$(grep "^version =" config.toml | head -n 1 | cut -d\" -f2)
+# Legacy automation for Hugo + Anka docs. The Docusaurus site uses docs/ in-repo; see https://docusaurus.io/docs/versioning
+if [[ ! -f "$SCRIPT_DIR/config.toml" ]]; then
+  echo "generate-version-snapshots.bash: config.toml not found (Hugo removed). Exiting."
+  exit 0
+fi
+CURRENT_VERSION=$(grep "^version =" "$SCRIPT_DIR/config.toml" | head -n 1 | cut -d\" -f2)
 
 function write_to_config() {
     TOML_LOCATION=$1
