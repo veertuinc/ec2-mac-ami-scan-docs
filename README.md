@@ -24,7 +24,7 @@ npx docusaurus serve
 
 ## CI / deploy
 
-- `npm run staging-build` / `npm run public-build` — production bundles with the correct `url` for metadata (override with `DOCUSAURUS_URL`).
+- `AWS_PROFILE=veertu npm run staging-build` / `AWS_PROFILE=veertu npm run public-build` — production bundles with the correct `url` for metadata (override with `DOCUSAURUS_URL`).
 - `npm run staging-deploy` / `npm run public-deploy` — sync `build/` to S3 and (for production) invalidate CloudFront. Requires AWS CLI credentials (as in Jenkins `withAWS`).
 
 ## Content

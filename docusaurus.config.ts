@@ -35,7 +35,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/veertuinc/ec2-mac-ami-scan-docs/edit/main/',
+            'https://github.com/veertuinc/ec2-mac-ami-scan-docs',
         },
         blog: false,
         theme: {
@@ -58,7 +58,7 @@ const config: Config = {
       },
       items: [
         {
-          href: 'https://veertu.com/downloads/ec2-mac-ami-scan-linux',
+          href: 'https://veertu.com/download-aws-ec2-mac-ami-scan/',
           label: 'Download',
           position: 'right',
         },
@@ -77,7 +77,7 @@ const config: Config = {
           items: [
             {
               label: 'Downloads',
-              href: 'https://veertu.com/downloads/ec2-mac-ami-scan-linux',
+              href: 'https://veertu.com/download-aws-ec2-mac-ami-scan/',
             },
             {
               label: 'Trial license',
