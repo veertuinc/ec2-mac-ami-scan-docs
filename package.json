@@ -14,7 +14,7 @@
     "public-build": "DOCUSAURUS_URL=https://docs.veertu.com docusaurus build",
     "html-test-build": "DOCUSAURUS_URL=http://localhost:3000 docusaurus build",
     "staging-deploy": "aws s3 sync build/ s3://veertu-docs-staging/ec2-mac-ami-scan/ --delete --region us-west-2",
-    "public-deploy": "aws s3 sync build/ s3://veertu-docs/ec2-mac-ami-scan/ --delete --region us-west-2 && aws cloudfront create-invalidation --distribution-id E1HL1WPGFI84XU --paths '/ec2-mac-ami-scan/*'"
+    "public-deploy": "aws s3 sync build/ s3://veertu-docs/ec2-mac-ami-scan/ --delete --region us-west-2 && aws cloudfront create-invalidation --distribution-id E1HL1WPGFI84XU --paths '/ec2-mac-ami-scan/*' '/ec2-mac-ami-scan/index.html' '/ec2-mac-ami-scan/img/veertu-favicon.ico'"
   },
   "repository": {
     "type": "git",

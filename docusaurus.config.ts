@@ -7,7 +7,8 @@ const productionUrl = 'https://docs.veertu.com';
 const config: Config = {
   title: "Veertu's AWS EC2 Mac AMI Scan Documentation",
   tagline: 'Documentation for Veertu AWS EC2 Mac AMI Scan',
-  favicon: 'img/favicon.ico',
+  // Distinct filename so browsers/CDNs do not keep serving an old /favicon.ico from cache.
+  favicon: 'img/veertu-favicon.ico',
 
   future: {
     v4: true,

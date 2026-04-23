@@ -13,8 +13,6 @@ npm install
 npm start
 ```
 
-The site uses [docs-only mode](https://docusaurus.io/docs/docs-introduction#docs-only-mode) with `baseUrl` `/ec2-mac-ami-scan/`. Open the URL shown in the terminal (for example `http://localhost:3000/ec2-mac-ami-scan/`).
-
 ## Production build
 
 ```bash
@@ -24,7 +22,7 @@ npx docusaurus serve
 
 ## CI / deploy
 
-- `AWS_PROFILE=veertu npm run staging-build` / `AWS_PROFILE=veertu npm run public-build` — production bundles with the correct `url` for metadata (override with `DOCUSAURUS_URL`).
+- `npm run staging-build` / `npm run public-build` — production bundles with the correct `url` for metadata (override with `DOCUSAURUS_URL`).
 - `npm run staging-deploy` / `npm run public-deploy` — sync `build/` to S3 and (for production) invalidate CloudFront. Requires AWS CLI credentials (as in Jenkins `withAWS`).
 
 ## Content
