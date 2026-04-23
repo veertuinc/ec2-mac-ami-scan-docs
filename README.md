@@ -32,16 +32,3 @@ npx docusaurus serve
 - Main guide: `docs/intro.mdx`
 - Third-party licenses: `docs/third-party-license-acknowledgements.md` (uses `mdx.format: md` in front matter so plain-license text is not parsed as MDX)
 
-The former Hugo `content/` submodule and `themes/docsy` are removed; all docs live under `docs/` now.
-
-## Submodule cleanup
-
-This repository previously used Hugo with Git submodules for `themes/docsy` and `content`. Those have been removed in favor of `docs/` in the main tree. After pulling these changes, drop stale submodule metadata if Git still reports them:
-
-```bash
-git submodule deinit -f themes/docsy content 2>/dev/null || true
-git rm -rf themes/docsy content
-rm -f .gitmodules
-```
-
-Then commit the cleanup.
