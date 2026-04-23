@@ -35,7 +35,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/veertuinc/ec2-mac-ami-scan-docs',
+            'https://github.com/veertuinc/ec2-mac-ami-scan-docs/blob/live/docs/',
         },
         blog: false,
         theme: {
