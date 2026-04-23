@@ -1,6 +1,6 @@
 {
   "name": "ec2-mac-ami-scan-docs",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "private": true,
   "description": "Veertu AWS EC2 Mac AMI Scan documentation (Docusaurus)",
   "scripts": {
