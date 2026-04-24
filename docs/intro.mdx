@@ -25,9 +25,9 @@ Scanned languages/packages:
 ```bash
 sh-4.2$ ./ec2-mac-ami-scan
 
-A vulnerability scanner for MacOS AMis.
+A vulnerability scanner for MacOS AMIs.
 
-Supported commands/types:
+Supported commands:
   ec2-mac-ami-scan ami-id	    		| Read and scan using an AWS AMI-ID
 
 Usage:
@@ -41,17 +41,18 @@ Available Commands:
   version     Show the version
 
 Flags:
-  -c, --config string          application config file
-  -u, --disable-db-update      disable updating scanner DB automatically
-  -h, --help                   help for ec2-mac-ami-scan
-  -i, --ignore-system-volume   do not scan the system volume (for anka VM)
-  -l, --license-file string    license file path (default "scanner.lic")
-      --min-score float32      don't show vulnerabilities with lesser score
-      --min-severity string    don't show vulnerabilities with lesser severity
-  -q, --quiet                  suppress all console output
-  -o, --report-file string     write report to file
-  -f, --report-format string   report output format, formats=[json table] (default "table")
-  -p, --show-packages          do not scan and only show packages
+      --ami-license-file string   unique AMI add-on license file path
+  -c, --config string             application config file
+  -u, --disable-db-update         disable updating scanner DB automatically
+  -h, --help                      help for ec2-mac-ami-scan
+  -i, --ignore-system-volume      do not scan the system volume
+  -l, --license-file string       license file path (default "scanner.lic")
+      --min-score float32         do not show vulnerabilities with lesser score
+      --min-severity string       do not show vulnerabilities with lesser severity
+  -q, --quiet                     suppress all console output
+  -o, --report-file string        write report to file
+  -f, --report-format string      report output format, formats=[json table] (default "table")
+  -p, --show-packages             do not scan and only show packages
 
 Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 ```
@@ -119,8 +120,16 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
 
 #### How to License
 
-1. [Obtain a trial or full license](https://veertu.com/ec2-mac-ami-scan-trial/)
-2. Execute the license CLI to activate it:
+You need two different licenses to scan an AMI.
+
+1. The "Platform" license for the specific host to use the binary.
+2. The "AMI Add-On" license for the specific AMI[s] you want to scan.
+
+Here is the step by step:
+
+1. Set up the AWS CLI and make sure the ~/.aws/credentials file is set up with the correct credentials for the root user.
+2. Obtain licenses: [Trial](https://veertu.com/ec2-mac-ami-scan-trial/)  - or email support@veertu.com to get a non-trial license
+3. Execute the license CLI to activate it:
 
     ```bash
     sh-4.2$ ./ec2-mac-ami-scan license
@@ -137,8 +146,9 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
       -h, --help   help for license
 
     Global Flags:
-      -c, --config string         application config file
-      -l, --license-file string   license file path (default "scanner.lic")
+          --ami-license-file string   unique AMI add-on license file path
+      -c, --config string             application config file
+      -l, --license-file string       license file path (default "scanner.lic")
 
     Use "ec2-mac-ami-scan license [command] --help" for more information about a command.
     ```
@@ -156,6 +166,32 @@ Use "ec2-mac-ami-scan [command] --help" for more information about a command.
     Product:          com.veertu.macami.scan
     Version:          1.0
     Expiration Date:  31-dec-2022
+    ```
+
+    ```bash
+    sh-4.2$ ./ec2-mac-ami-scan license activate --help
+    Activate the license
+
+    Usage:
+      ec2-mac-ami-scan license activate {activation-key} [flags]
+
+    Flags:
+          --ami-count   activate Unique AMI add-on license
+      -h, --help        help for activate
+      -o, --overwrite   overwrite license file if already exists
+
+    Global Flags:
+          --ami-license-file string   unique AMI add-on license file path
+      -c, --config string             application config file
+      -l, --license-file string       license file path (default "scanner.lic")
+    ```
+
+    ```bash
+    sh-4.2$ ./ec2-mac-ami-scan ami-XXXXXXXXXXXXXXXXX
+    Error: unique AMI Scan license is required for this scan
+
+    sh-4.2$ ./ec2-mac-ami-scan license activate --ami-count XXXX-XXXX-XXXX-XXXX
+    Activated
     ```
 
 :::info
@@ -327,12 +363,18 @@ sh-4.2$ sudo ./ec2-mac-ami-scan ami-07eec7bea34f42837 --report-format json --con
 Report written to "/tmp/report_i18n_python.json"
 ```
 
+## FAQs
+
+- Why do I need two licenses?
+    - The "Platform" license is for the specific host to use the binary.
+    - The "AMI Add-On" license is for the specific AMI[s] you want to scan.
+- Why do I need to set up the AWS CLI?
+    - The AWS CLI is used to get the AMI snapshot and mount it as a volume.
+- For the AMI Add-On license, can I scan multiple AMIs with the same license?
+    - Yes, you can scan multiple AMIs with the same license as long as you've paid for the amount of AMIs you want to scan.
+
 ## Release Notes
 
-### 1.2.0 - Mar 21st, 2026
+### 2.0.0 - Apr 24th, 2026
 
-- **Improvement:** Various security patches and user experience improvements.
-
-### 1.1.0 - Sep 7th, 2022
-
-- **Improvement:** Volumes are now mounted as gp3 with 10000 IOPs and 256 throughput for more consistent speed, regardless of volume size being scanned.
+- Complete rewrite of the scanner for a new license structure.
